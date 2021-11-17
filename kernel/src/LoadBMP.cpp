@@ -1,1 +1,0 @@
-#include "LoadBMP.h"
