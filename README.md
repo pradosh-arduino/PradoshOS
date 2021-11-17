@@ -52,17 +52,17 @@
  ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
 
 # Problems
- Q: Qemu stuck while booting (Tiano Core)
+ **Q: Qemu stuck while booting (Tiano Core)**
  
  A: That means UEFI binaries had corrupted which is a normal thing goto
     https://github.com/pradosh-arduino/UEFI-Firmware and download the files
     then paste it in OVMFbin
     
- Q: I'm Getting General Protection Fault!
+ **Q: I'm Getting General Protection Fault!
  
  A: That's because you tried to change run.bat's qemu arguments if the arguments are bad that will cause a GPF
 
- Q: I'm Getting Page Fault!!!
+** Q: I'm Getting Page Fault!!!
  
  A: That's occured because if you run the OS in very little amount of resolution
 
