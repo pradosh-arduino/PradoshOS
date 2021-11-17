@@ -40,6 +40,6 @@
 
  Now the OS cannot run in VirtualBox or VMware, it only run on qemu and real hardware
  so here are the steps to run in qemu
- if your in linux type `make run` in terminal
+ if your in linux you need to add some attributes to makefile to run (not inplemented by my self yet)
  if your in Windows run `run.bat`
  
