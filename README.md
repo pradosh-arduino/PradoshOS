@@ -62,7 +62,7 @@
  
          - This is a tricky part, first download PowerISO and open the OS image file with PowerISO
          - then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
-         - rename the file to exact same zap-light16.psf and save the file and run again with qemu now you should see the new font
+         - rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
          
 # Problems
  **Q: Qemu stuck while booting (Tiano Core)**
