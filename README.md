@@ -1,1 +1,1 @@
-Learn Everything in my Wiki: https://github.com/pradosh-arduino/PradoshOS/wiki/PradoshOS-Wiki
+Learn Everything in my Website: https://pradosh-arduino.github.io/PradoshOS/
