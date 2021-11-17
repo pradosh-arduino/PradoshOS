@@ -80,7 +80,7 @@
  A: That's occured because if you run the OS in very little amount of resolution
 
 
- *General protection fault and Page fault will occur various reasons the above is the errors that will occur most likely it's recommended to Contact me*
+ *General protection fault and Page fault will occur various reasons the above is the errors that will occur most likely it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
  
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
