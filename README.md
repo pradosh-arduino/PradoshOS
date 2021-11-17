@@ -6,7 +6,7 @@
  
  Step 1: Install WSL
  
-         - WSL emulates Linux System in windows without any virtual machine (skip the step if your using Linux)
+         - WSL emulates Linux System in Windows without any virtual machine (skip the step if your using Linux)
  
  Step 2: Update WSL/Linux Enviroinment (Optional but recommended)
  
@@ -51,6 +51,19 @@
  Error Screen:
  ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
 
+# Font Package
+ Right now there are 2 fonts (that i can find) which works with PradoshOS. to install a diffrent font follow the steps below
+ 
+ Step 1: Get a Font
+ 
+         - if you can't find a PSF type font there is https://github.com/pradosh-arduino/Font-Package right now there is 2 font if we find more PSF fonts we will add it
+         
+ Step 2: Changing the Font
+ 
+         - This is a tricky part, first download PowerISO and open the OS image file with PowerISO
+         - then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
+         - rename the file to exact same zap-light16.psf and save the file and run again with qemu now you should see the new font
+         
 # Problems
  **Q: Qemu stuck while booting (Tiano Core)**
  
