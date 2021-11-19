@@ -19,7 +19,7 @@ void Panic(const char* msg, const char* location, const char* when, uint64_t off
     GlobalRenderer->Print("Error code:");
     GlobalRenderer->Next();
     GlobalRenderer->Print("0x");
-    GlobalRenderer->Print(to_hstring((uint16_t)offset));
+    GlobalRenderer->Print(to_hstring((uint32_t)offset));
     GlobalRenderer->Next();
     GlobalRenderer->Print("Gate Type: ");
     if(type_attr == 0b10001110){
