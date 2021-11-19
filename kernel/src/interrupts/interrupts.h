@@ -23,3 +23,4 @@ __attribute__((interrupt)) void PITInt_Handler(interrupt_frame* frame);
 void RemapPIC();
 void PIC_EndMaster();
 void PIC_EndSlave();
+void PrepareInterrupts();
