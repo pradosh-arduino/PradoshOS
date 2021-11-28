@@ -3,6 +3,7 @@
 #include "../addons.h"
 #include "../scheduling/pit/pit.h"
 #include "../shell.h"
+#include "../powerMgmt.h"
 
     bool isLeftShiftPressed;
     bool isRightShiftPressed;
@@ -13,6 +14,7 @@
     bool EnterActivator;
     bool isEnterPressed = false;
     
+    bool isF3Pressed = false;
     
     char string[1000];
     int i = 0;
@@ -50,6 +52,9 @@ void HandleKeyboard(uint8_t scancode){
         case BackSpace:
            GlobalRenderer->ClearChar();
            return;
+        case 0x04:
+           isF3Pressed = true;
+           return;
 
         // remove from string
         string[i - 1] = 0;
@@ -61,6 +66,12 @@ void HandleKeyboard(uint8_t scancode){
         GlobalRenderer->PutChar(ascii);
         string[i] = ascii;
         i++;
+    }
+
+    if(isF3Pressed == true){
+        shutdown();
+    }else{
+        
     }
 
 }

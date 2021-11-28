@@ -15,6 +15,9 @@ class Multiprocessing{
     int currentProcess;
 };
 
+extern task* task2;
+extern Multiprocessing* mp;
+
 void lock_scheduler(void);
 void unlock_scheduler(void);
 void schedule(void);
@@ -22,6 +25,6 @@ void block_task(int reason);
 void unblock_task(task* task2);
 void cleanup_terminated_task(task* task2);
 void cleaner_task(void);
-void terminate_task(void);
+void terminate_task(int reason);
 const char* get_error_code(int state);
 void kernel_idle_task(void);

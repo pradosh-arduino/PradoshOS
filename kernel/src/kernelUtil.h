@@ -13,11 +13,15 @@
 #include "userinput/mouse.h"
 #include "acpi.h"
 #include "pci.h"
+#include "interrupts/IDT.h"
+#include "interrupts/interrupts.h"
 
 struct BootInfo {
 	Framebuffer* framebuffer;
 	PSF1_FONT* psf1_Font;
 	EFI_MEMORY_DESCRIPTOR* mMap;
+	void COLD_REBOOT();
+	void SHUTDOWN();
 	uint64_t mMapSize;
 	uint64_t mMapDescSize;
 	ACPI::RSDP2* rsdp;
@@ -29,4 +33,5 @@ extern uint64_t _KernelEnd;
 struct KernelInfo {
     PageTableManager* pageTableManager;
 };
+
 KernelInfo InitializeKernel(BootInfo* BootInfo);

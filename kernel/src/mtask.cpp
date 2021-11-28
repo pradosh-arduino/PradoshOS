@@ -1,13 +1,17 @@
 #include "mtask.h"
 #include <cstddef>
 #include "BasicRenderer.h"
+#include "cstr.h"
 
 int IRQ_disable_counter = 0;
 task* first_ready_to_run_task = first_ready_to_run_task->next;
 task* current_task_TCB;
 task* terminated_task_list = NULL;
 
-#define KERNEL_STACK_SIZE 0x3000
+task* task2;
+Multiprocessing* mp;
+
+#define KERNEL_STACK_SIZE 0x1000
 
 void lock_scheduler(void) {
 #ifndef SMP
@@ -27,11 +31,16 @@ void unlock_scheduler(void) {
 
 
 void schedule(void) {
-    Multiprocessing* mp;
-    mp->currentProcess += 1;
+    mp->currentProcess++;
     if(first_ready_to_run_task != NULL) {
         task* processTask = first_ready_to_run_task;
     }
+    GlobalRenderer->Print(to_string((float)task2->id));
+    GlobalRenderer->ClearChar();
+    GlobalRenderer->ClearChar();
+    GlobalRenderer->ClearChar();
+    GlobalRenderer->Print(":");
+    GlobalRenderer->Print("Started!");
 }
 
 void block_task(int reason) {
@@ -70,7 +79,7 @@ const char* get_error_code(int state){
     }else if(state == 3){
         return "kernel is currently idle.";
     }else if(state == 4){
-        return "Shutting down servises";
+        return "Shutting down services";
     }else if(state == 5){
         return "Terminated";
     }else if(state == 6){
@@ -81,34 +90,18 @@ const char* get_error_code(int state){
 }
 
  
-void terminate_task(void) {
- 
-    //Can do any harmless stuff here (close files, free memory in user-space, ...) but there's none of that yet
- 
-    //lock_stuff();
- 
+void terminate_task(int reason) {
     lock_scheduler();
+    GlobalRenderer->Next();
     current_task_TCB->next = terminated_task_list;
     terminated_task_list = current_task_TCB;
     unlock_scheduler();
- 
-    // Block this task (note: task switch will be postponed until scheduler lock is released)
- 
-    block_task(5);
- 
-    // Make sure the cleaner task isn't paused
- 
+
+    block_task(reason); 
     unblock_task((task*)cleaner_task);
- 
-    // Unlock the scheduler's lock
- 
-    //unlock_stuff();
 }
 
-void cleaner_task(void) {
-    task* task2;
- 
-    //lock_stuff();
+void cleaner_task(void) { 
  
     while(terminated_task_list != NULL) {
         task2 = terminated_task_list;
@@ -117,7 +110,6 @@ void cleaner_task(void) {
     }
  
     block_task(6);
-    //unlock_stuff();
 }
  
 void cleanup_terminated_task(task* task2) {

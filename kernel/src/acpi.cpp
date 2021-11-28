@@ -1,4 +1,9 @@
 #include "acpi.h"
+#include <cstddef>
+#include "addons.h"
+#include "errorScreen/errScr.h"
+#include "interrupts/interrupts.h"
+#include "cstr.h"
 
 namespace ACPI{
     void* FindTable(SDTHeader* stdHeader, char* signature){
@@ -14,4 +19,4 @@ namespace ACPI{
         }
         return 0;
     }
-}
+}   

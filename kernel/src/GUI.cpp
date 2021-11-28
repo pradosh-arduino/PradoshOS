@@ -3,79 +3,43 @@
 #include "userinput/mouse.h"
 #include <string.h>
 #include "scheduling/pit/pit.h"
-#undef strcmp
-#ifndef STRCMP
-# define STRCMP strcmp
-#endif
 
-int xpos;
-void PrtWelcome(){
-    for(int t = 650; t < 1300; t++){
-      GlobalRenderer->PutPix(t, 360, 0x00ffffff);
-      GlobalRenderer->PutPix(t, 364, 0x00ffffff);
-    }
-    for(int t = 650; t < 1300; t++){
-      GlobalRenderer->PutPix(t, 550, 0x00ffffff);
-      GlobalRenderer->PutPix(t, 554, 0x00ffffff);
-    }
-    for(int t = 360; t < 550; t++){
-      GlobalRenderer->PutPix(650, t, 0x00ffffff);
-      GlobalRenderer->PutPix(654, t, 0x00ffffff);
-    }
-    for(int t = 360; t < 550; t++){
-      GlobalRenderer->PutPix(1300, t, 0x00ffffff);
-      GlobalRenderer->PutPix(1296, t, 0x00ffffff);
-    }
+/*
+void TextBox(int CordY, int height, int CordX, int width, uint32_t colour){
+  int priH = CordY + height;
+  int priW = CordX + width;
+  for(int i = CordY; i < priH; i++){
+    GlobalRenderer->PutPix(priW, i, colour);
+  }
+  for(int l = CordX; l < priW; l++){
+    GlobalRenderer->PutPix(l, priH, colour);
+  }
+  GlobalRenderer->SetCursor = {CordX}
 }
-void PutGUIbox(int TopLineStart, int TopLineEnd, int LeftLineStart, int LeftLineEnd, int RightLineStart, int RightLineEnd, int BottomLineStart, int BottomLineEnd, bool OKbutton, bool Cancelbutton, const char* msg){
-    for(int t = TopLineStart; t < TopLineEnd; t++){
-      GlobalRenderer->PutPix(t, 360, 0xffffffff);
-      GlobalRenderer->PutPix(t, 364, 0xffffffff);
-    }
-    for(int t = BottomLineStart; t < BottomLineEnd; t++){
-      GlobalRenderer->PutPix(t, 550, 0xffffffff);
-      GlobalRenderer->PutPix(t, 554, 0xffffffff);
-    }
-    for(int t = LeftLineStart; t < LeftLineEnd; t++){
-      GlobalRenderer->PutPix(650, t, 0xffffffff);
-      GlobalRenderer->PutPix(654, t, 0xffffffff);
-    }
-    for(int t = RightLineStart; t < RightLineEnd; t++){
-      GlobalRenderer->PutPix(1300, t, 0xffffffff);
-      GlobalRenderer->PutPix(1296, t, 0xffffffff);
-    }
-}
-void PrintButton(const char* buttonText){
-  GlobalRenderer->Next();
-  GlobalRenderer->Print("-------------");
-  GlobalRenderer->Next();
-  GlobalRenderer->Print("| ");
-  GlobalRenderer->Print(buttonText);
-  GlobalRenderer->Print(" |");
-  GlobalRenderer->Next();
-  GlobalRenderer->Print("-------------");
-}
-void setRect(uint32_t xPos, uint32_t yPos, uint32_t xLength, uint32_t yLength, uint32_t colour, int delay){
+*/
+
+void setRect(uint32_t xPos, uint32_t yPos, uint32_t xLength, uint32_t yLength, uint32_t colour, int delay, const char* text){
   int LocalxL = xPos + xLength;
   int LocalyL = yPos + yLength;
   PIT::Sleepd(delay);
-    for(int x = xPos; x < LocalxL; x++){
-        for(int y = yPos; y < LocalyL; y++){
-            GlobalRenderer->PutPix(x, y, colour);
-        }
+  for(int x = xPos; x < LocalxL; x++){
+    for(int y = yPos; y < LocalyL; y++){
+      GlobalRenderer->PutPix(x, y, colour);
     }
+  }
+  Point OldPos = GlobalRenderer->CursorPosition;
+  int l = xLength / 2;
+  int k = yLength / 2;
+  //int i = l - strlen(text) / 2;
+  GlobalRenderer->CursorPosition = {l, k};
+  GlobalRenderer->Print("");
+  GlobalRenderer->CursorPosition = OldPos;
 }
-void setBlock(uint32_t x, uint32_t y, uint32_t L, uint32_t colour){
-    for (int i = 0; i < L; i++) {
-        for (int j = 0; j < L; j++) {
-            GlobalRenderer->PutPix(x + i, y + j, colour);
-        }
-    }
-}
+
 void printFill(const char* str){
     int charLen = strlen(str);
     int LocalCharLength = charLen * 8;
-    setRect(GlobalRenderer->CursorPosition.X, GlobalRenderer->CursorPosition.Y, LocalCharLength, 16, 0x00ffffff, 0);
+    setRect(GlobalRenderer->CursorPosition.X, GlobalRenderer->CursorPosition.Y, LocalCharLength, 16, 0x00ffffff, 0, "");
     GlobalRenderer->Colour = 0x00292929;
     GlobalRenderer->Print(str);
     GlobalRenderer->Colour = 0x00ffffff;

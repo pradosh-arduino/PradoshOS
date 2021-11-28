@@ -8,13 +8,14 @@ CC = gcc
 ASMC = nasm
 LD = ld
 
-CFLAGS = -ffreestanding -fshort-wchar -mno-red-zone -fno-exceptions
+CFLAGS = -ffreestanding -fshort-wchar -mno-red-zone -fno-exceptions  --verbose
 ASMFLAGS =
-LDFLAGS = -T $(LDS) -static -Bsymbolic -nostdlib
+LDFLAGS = -T $(LDS) -static -Bsymbolic -nostdlib  --verbose
 
 SRCDIR := src
 OBJDIR := lib
 BUILDDIR = bin
+USRDIR := userland
 BOOTEFI := $(GNUEFI)/x86_64/bootloader/main.efi
 BOOTX64 := $(GNUEFI)/x86_64/bootloader/bootx64.efi
 BOOTIA32 := $(BUILDDIR)/bootia32.efi
@@ -32,22 +33,22 @@ kernel: $(OBJS) link
 
 
 $(OBJDIR)/interrupts/interrupts.o: $(SRCDIR)/interrupts/interrupts.cpp
-	@ echo COMPILING $^
+	@ echo "\e[1;34mCOMPILING $^\e[0m"
 	@ mkdir -p $(@D)
 	$(CC) -mno-red-zone -mgeneral-regs-only -ffreestanding -c $^ -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	@ echo COMPILING $^
+	@ echo "\e[1;34mCOMPILING $^\e[0m"
 	@ mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@ echo COMPILING $^
+	@ echo "\e[1;34mCOMPILING $^\e[0m"
 	@ mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(OBJDIR)/%_asm.o: $(SRCDIR)/%.asm
-	@ echo COMPILING $^
+	@ echo "\e[1;34mCOMPILING $^\e[0m"
 	@ mkdir -p $(@D)
 	$(ASMC) $(ASMFLAGS) $^ -f elf64 -o $@
 
@@ -56,7 +57,7 @@ cmplMulitask:
 	nasm -f elf32 $(SRCDIR)/mtask.asm -o $(OBJDIR)/mtask_asm.o
 
 link:
-	@ echo LINKING
+	@ echo "\e[1;34mLINKING $^\e[0m"
 	$(LD) $(LDFLAGS) -o $(BUILDDIR)/kernel.elf $(OBJS)
 	readelf -a bin/kernel.elf > ReadELF.txt
 
@@ -68,32 +69,33 @@ setup:
 clean:
 	- rm -r lib/*
 
-all: clean kernel buildimg print
+all: clean kernel buildimg read print
 
-verifyAll: verifyKernelFormat verifyMultiBoot
+userland:
+	copy $(USRDIR)/userentry.o $(OBJDIR)/
 
 print:
 	@ echo
-	@ echo [DONE] PradoshOS compiled and builded Successfully!
+	@ echo "\e[1;32m [DONE] PradoshOS compiled and builded Successfully! \e[0m"
 
-verifyMultiBoot:
-	@ echo
-	@ echo Verifying multiboot...
-	sh MultiBoot.sh
+read:
+	hexdump -C bin/kernel.elf
+	readelf -a bin/kernel.elf
 
-verifyKernelFormat:
-	@ echo
-	@ echo Verifying kernel format...
-	sh KernelFormat.sh
+version:
+	objcopy res/version.txt -O version.o
+	copy res/version.o lib/
 
 buildimg:
 	dd if=/dev/zero of=$(BUILDDIR)/$(OSNAME).img bs=512 count=93750
-	truncate -s 100M $(BUILDDIR)/$(OSNAME).img
-	mformat -v PradoshOS -F -c 1 -i $(BUILDDIR)/$(OSNAME).img ::
+	mformat -v PradoshOS -i $(BUILDDIR)/$(OSNAME).img -f 1440 ::
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/BOOT
+	mmd -i $(BUILDDIR)/$(OSNAME).img ::/StartupApps
+	mmd -i $(BUILDDIR)/$(OSNAME).img ::/StartupApps/b64
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BOOTEFI) ::/EFI/BOOT
-	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BOOTX64) ::/EFI/BOOT
 	mcopy -i $(BUILDDIR)/$(OSNAME).img startup.nsh ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/kernel.elf ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img $(USRDIR)/userland.elf ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-light16.psf ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img img.tga ::

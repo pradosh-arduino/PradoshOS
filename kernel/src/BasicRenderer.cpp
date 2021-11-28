@@ -1,5 +1,6 @@
 #include "BasicRenderer.h"
 #include "addons.h"
+#include "scheduling/pit/pit.h"
 
 BasicRenderer* GlobalRenderer;
 
@@ -182,7 +183,8 @@ void BasicRenderer::Scroll(){
     int width = 1920;
     Framebuffer* framebuffer;
     for(int i = 1; i < CursorPosition.Y + 1; i++){
-        //__memmove((void*)CursorPosition.Y, (void*)CursorPosition.Y, CursorPosition.Y);
+        //PIT::Sleepd(0.2);
+        //__memmove((void*)CursorPosition.Y, (void*)CursorPosition.X, sizeof(CursorPosition));
     }
     ClearLine(CursorPosition.Y);
     CursorPosition.Y--;

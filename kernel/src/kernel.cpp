@@ -18,7 +18,7 @@
 #include "userinput/keyboard.h"
 //userinput
 //interupts
-
+#include "ahci/ahci.h"
 //interupts
 #include "Screen.h"
 #include "bootscr.h"
@@ -64,12 +64,16 @@
 #include "mtask.h"
 #include "shell.h"
 #include "fs.h"
+#include "fade.h"
 
 using namespace blaster;
 using namespace OSDatas;
+using namespace AHCI;
+
 extern "C" void _start(BootInfo* bootInfo){
     KernelInfo kernelInfo = InitializeKernel(bootInfo);
     PageTableManager* pageTableManager = kernelInfo.pageTableManager;
+    cleanup_terminated_task(task2);
     //PIT::TimeSinceBoot = 1;
     PIT::SetDivisor(65535);
     int HardDriveAvaStorageMB = 276447231;
@@ -88,25 +92,19 @@ extern "C" void _start(BootInfo* bootInfo){
     int RamCursorPos = 0;
     Syscalls* LogRenderer;
 
+    //fade();
 
     //memset(bootInfo->framebuffer->BaseAddress, 0, bootInfo->framebuffer->BufferSize);
     BasicRenderer newRenderer = BasicRenderer(bootInfo->framebuffer, bootInfo->psf1_Font); 
     uint64_t kernelSize = (uint64_t)&_KernelEnd - (uint64_t)&_KernelStart;
     uint64_t kernelPages = (uint64_t)kernelSize / 4096 + 1;
     int tests;
-    if(stable == true){
-      //GlobalRenderer->Print("-stable");
-    }else{
-      //GlobalRenderer->Print("-unstable");
-    }
-    //GlobalRenderer->Next();
     LogRenderer->Done("RAM:");
     
     uint64_t mMapEntries = bootInfo->mMapSize / bootInfo->mMapDescSize;
 
     PageFrameAllocator newAllocator;
     newAllocator.ReadEFIMemoryMap(bootInfo->mMap, bootInfo->mMapSize, bootInfo->mMapDescSize);
-
 
     newAllocator.LockPages(&_KernelStart, kernelPages); //lock
     uint64_t fbBase = (uint64_t)bootInfo->framebuffer->BaseAddress;
@@ -119,10 +117,6 @@ extern "C" void _start(BootInfo* bootInfo){
       pageTableManager->MapMemory((void*)t, (void*)t);
     }
     int memoryData = newAllocator.GetUsedRAM() / 1024 + newAllocator.GetFreeRAM() / 1024;
-    //GlobalRenderer->Clear();
-    //GlobalRenderer->CursorPosition = {0, 0};
-    GlobalRenderer->Next();
-    GlobalRenderer->Next();
     GlobalRenderer->Print("Total RAM: ");
     GlobalRenderer->Colour = 0x0000ccff;
     GlobalRenderer->Print(" ");
@@ -221,12 +215,6 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->Print("0x");
     GlobalRenderer->Print(to_hstring(fbSize));
     GlobalRenderer->Next();
-    GlobalRenderer->Print("Screen Width:");
-    GlobalRenderer->Print(to_string(ScreenWidth));
-    GlobalRenderer->Next();
-    GlobalRenderer->Print("Screen Height:");
-    GlobalRenderer->Print(to_string(ScreenHeight));
-    GlobalRenderer->Next();
     GlobalRenderer->Print("Resolution:");
     GlobalRenderer->Print(to_string(ScreenWidth));
     GlobalRenderer->Print("x");
@@ -241,11 +229,15 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->Colour = 0xffffffff;
     GlobalRenderer->Print("]");
     GlobalRenderer->Print("Serial COM:");
-
     GlobalRenderer->Next();
     //setRect(0, 1050, 30, 1920, 0x00ffffff, 5);
-    //init_serial();
-    /*
+    if(GlobalSerial->serial_configure_baud_rate(PORT, 65535) == true){
+      GlobalRenderer->Print("Found COM port:");
+      GlobalRenderer->Print(to_hstring((uint16_t)PORT));
+    }else{
+      GlobalRenderer->Print("no serial found.");
+    }
+    GlobalRenderer->Next();
     int* foo;
     foo = (int*)_malloc(0xffffff);
     foo = (int*)_realloc(foo, 10 * sizeof(int));
@@ -257,28 +249,7 @@ extern "C" void _start(BootInfo* bootInfo){
       LogRenderer->Done(to_hstring((uint64_t)foo));
       //delete foo;
       LogRenderer->Done(to_string((uint64_t)foo));
-    }*/
-    //PrepareACPI(bootInfo);
-    /*
-    GlobalRenderer->Next();
-    GlobalRenderer->PutChar(*(uint8_t*)bootInfo->rsdp);
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 1));
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 2));
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 3));
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 4));
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 5));
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 6));
-    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 7));
-    GlobalRenderer->Next();*/
-    //void* address = malloc(0x8000);
-    //GlobalRenderer->Print(to_hstring((uint64_t)address));
-    //InitializeHeap((void*)0x0000000000000000, 0x10);//0x0000100000000000
-    //GlobalRenderer->Print(to_hstring((uint64_t)malloc(0x100)));
-    //for(int print = 0; print < 7; print++){
-     // PIT::Sleepd(0.1);
-     // GlobalRenderer->Print(PrintCpuType());
-    //}
-    
+    }    
     GlobalRenderer->Colour = 0xffffffff;
     float v2 = (float)PIT::TimeSinceBoot / 10;
     GlobalRenderer->Print("Time Since boot:");
@@ -306,21 +277,32 @@ extern "C" void _start(BootInfo* bootInfo){
     //GlobalShell->Init(); //SHELL MODE
     MousePosition.X = ScreenWidth / 2;
     MousePosition.Y = ScreenHeight / 2;
-     //setRect(0, 1048, 1920, 32, 0x00ffffff);
-     /*
-     int count = 1;
-     for(int i = 0; i < count; i++){
-      lock_scheduler();
-      schedule();
-      unlock_scheduler();
-      if(count > 1){
-        block_task(1);
-      }
-      terminate_task();
-     }*/
-    while(true){
-        asm("hlt"); // imp cpu eff
-        ProcessMousePacket();
+    GlobalRenderer->PutChar(*(uint8_t*)bootInfo->rsdp);
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 1));
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 2));
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 3));
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 4));
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 5));
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 6));
+    GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 7));
+    GlobalRenderer->Next();
+    GlobalRenderer->Print(to_hstring((uint32_t)bootInfo->rsdp->RSDTAddress));
+    ACPI::FACPHeader* fadt;
+    outb(fadt->SMI_CMD, fadt->ACPI_ENABLE);
+    while (inw(fadt->PM1a_CNT_BLK) & 1 == 0);
+    GlobalRenderer->Print(to_hstring((uint32_t)fadt->PM1a_CNT_BLK));
+    GlobalRenderer->Next();
+    lock_scheduler();
+    schedule();
+    unlock_scheduler();
+    terminate_task(5);
+    cleanup_terminated_task(task2);
+
+    GlobalRenderer->PutPix(0, tga_parse((unsigned char*)"img.tga", (int)50.823), NULL);
+
+    for(;;){
+      asm("hlt"); // imp cpu eff
+      ProcessMousePacket();
     }
 while(true);
 }

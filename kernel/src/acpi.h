@@ -26,6 +26,14 @@ namespace ACPI{
         uint32_t CreatorRevision;
     }__attribute__((packed));
 
+    struct RSDPDescriptor20 {
+        RSDP2 rdsp10;
+        uint32_t Length;
+        uint64_t XsdtAddress;
+        uint8_t  ExtendedChecksum;
+        uint8_t  reserved[3];
+    } __attribute__ ((packed));
+
     struct MCFGHeader{
         SDTHeader Header;
         uint64_t Reserved;
@@ -39,6 +47,29 @@ namespace ACPI{
         uint32_t Reserved;
     }__attribute__((packed));
 
-    void* FindTable(SDTHeader* stdHeader, char* signature);
+    struct XSDT{
+        struct SDTHeader h;
+    };
 
+    struct FACPHeader
+    {
+        SDTHeader sdt;
+        uint32_t  unneded1;
+        uint32_t  DSDT;
+        uint8_t   unneded2[48 - 44];
+        uint32_t  SMI_CMD;
+        uint8_t   ACPI_ENABLE;
+        uint8_t   ACPI_DISABLE;
+        uint8_t   unneded3[64 - 54];
+        uint32_t  PM1a_CNT_BLK;
+        uint32_t  PM1b_CNT_BLK;
+        uint8_t   unneded4[89 - 72];
+        uint8_t   PM1_CNT_LEN;
+        uint8_t   unneded5[18];
+        uint8_t   century;
+    };
+
+    void begin(const void* addr);
+
+    void* FindTable(SDTHeader* stdHeader, char* signature);
 }

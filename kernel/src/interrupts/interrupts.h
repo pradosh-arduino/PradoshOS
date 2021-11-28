@@ -19,7 +19,12 @@ __attribute__((interrupt)) void GPFault_Handler(interrupt_frame* frame);
 __attribute__((interrupt)) void KeyboardInt_Handler(interrupt_frame* frame);
 __attribute__((interrupt)) void MouseInt_Handler(interrupt_frame* frame);
 __attribute__((interrupt)) void PITInt_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void DivideByZero_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void InvalidOpCode_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void StackSegmentFault_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void Debug_Handler(interrupt_frame* frame);
 
 void RemapPIC();
 void PIC_EndMaster();
 void PIC_EndSlave();
+void PrepareInterrupts();
