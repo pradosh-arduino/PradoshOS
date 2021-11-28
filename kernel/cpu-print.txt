@@ -1,0 +1,19 @@
+here are the procssors that can PradoshOS run:
+-cpu Westmere
+-cpu kvm64
+-cpu qemu64
+-cpu Westmere-IBRS
+-cpu SandyBridge
+-cpu SandyBridge-IBRS
+-cpu Nehalem-IBRS
+-cpu Conroe
+-cpu Cascadelake-Server-noTSX
+-cpu Opteron_G5
+-cpu Opteron_G4
+-cpu Opteron_G3
+-cpu Opteron_G2
+-cpu Opteron_G1
+
+best perfomence at:
+-cpu Nehalem-IBRS
+(remove -cpu)
