@@ -153,63 +153,22 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	EFI_FILE* Kernel = LoadFile(NULL, L"kernel.elf", ImageHandle, SystemTable);
 	if (Kernel == NULL){
 		Print(L"Could not load kernel \n\r");
+		for(int w = 0; w < 3000; w++){
+			//asm("hlt");
+		}
+		SystemTable->RuntimeServices->ResetSystem(EfiResetWarm, EFI_SUCCESS, 0, 0);
 	}
 	else{
 		Print(L"Kernel loaded: \n\r");
 		Print(L"Kernel Loaded Successfully \n\r");
 	}
-	//verify drives
-	/*
-	EFI_FILE* fs->fileSys1 = LoadFile(NULL, L"FS1:\\drive.config", ImageHandle, SystemTable);
-	EFI_FILE* fs->fileSys2 = LoadFile(NULL, L"FS2:\\drive.config", ImageHandle, SystemTable);
-	EFI_FILE* fs->fileSys3 = LoadFile(NULL, L"FS3:\\drive.config", ImageHandle, SystemTable);
-	EFI_FILE* fileSys4 = LoadFile(NULL, L"FS4:\\drive.config", ImageHandle, SystemTable);
-	EFI_FILE* fileSys5 = LoadFile(NULL, L"FS5:\\drive.config", ImageHandle, SystemTable);
-	EFI_FILE* fileSys6 = LoadFile(NULL, L"FS6:\\drive.config", ImageHandle, SystemTable);
-	EFI_FILE* fileSys7 = LoadFile(NULL, L"FS7:\\drive.config", ImageHandle, SystemTable);
-	
-	if(fileSys1 == NULL){
-		FS1 = false;
-	}else{
-		FS1 = true;
+	EFI_FILE* Userland = LoadFile(NULL, L"userland.elf", ImageHandle, SystemTable);
+	if (Userland == NULL){
+		Print(L"Userland not found\n\r");
 	}
-
-	if(fileSys2 == NULL){
-		FS2 = false;
-	}else{
-		FS2 = true;
+	else{
+		Print(L"Userland found!\n\r");
 	}
-
-	if(fileSys3 == NULL){
-		FS3 = false;
-	}else{
-		FS3 = true;
-	}
-
-	if(fileSys4 == NULL){
-		FS4 = false;
-	}else{
-		FS4 = true;
-	}
-
-	if(fileSys5 == NULL){
-		FS5 = false;
-	}else{
-		FS5 = true;
-	}
-
-	if(fileSys6 == NULL){
-		FS6 = false;
-	}else{
-		FS6 = true;
-	}
-
-	if(fileSys7 == NULL){
-		FS7 = false;
-	}else{
-		FS7 = true;
-	}*/
-	
 	Print(L"handleprotocol: \n\r");
 	uefi_call_wrapper(SystemTable->ConOut->SetAttribute, 1, SystemTable->ConOut, EFI_GREEN);
 	Print(L"%r", status);
@@ -286,6 +245,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	
 
 	Framebuffer* newBuffer = InitializeGOP();
+		
 
 	Print(L"Base: 0x%x\n\rSize: 0x%x\n\rWidth: %d\n\rHeight: %d\n\rPixelsPerScanline: %d\n\r", 
 	newBuffer->BaseAddress, 
