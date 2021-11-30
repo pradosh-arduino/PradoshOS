@@ -1,4 +1,4 @@
-### Welcome To PradoshOS Website!
+### Welcome To PradoshOS Github!
 
 Latest Version: Dev Build 00001
 
