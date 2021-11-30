@@ -9,6 +9,9 @@ namespace AHCI{
     #define ATA_CMD_READ_DMA_EX 0x25
 
     #define HBA_PxIS_TFES (1 << 30)
+
+    extern uint8_t* PortBuff;
+
     enum PortType{
         None = 0,
         SATA = 1,

@@ -1,5 +1,4 @@
 //applist
-#include "userspace.h"
 //#include <stdio.h>
 #include <cstdio>
 //#include <glibc.h>
@@ -8,10 +7,7 @@
 #include "paging/PageFrameAllocator.h"
 #include "scheduling/pit/pit.h"
 //error controller
-#include "memPanic.h"
-#include "filePanic.h"
-#include "hpanic.h"
-#include "userPanic.h"
+
 //error contoller
 //userinput
 #include "userinput/mouse.h"
@@ -30,14 +26,14 @@
 #include "Framebuffer.h"
 #include "CPUID.h"
 #include "pci/pci.h"
-#include "LoadBMP.h"
 //memory
-#include "memory/heap.h"
+
 //memory
 #include "PradX.h"
 #include "colours.h"
 //limine
 #include <stdint.h>
+#include <stdio.h>
 #include <stddef.h>
 //#include <stivale.h>
 //limine
@@ -65,6 +61,8 @@
 #include "shell.h"
 #include "fs.h"
 #include "fade.h"
+
+using namespace std;
 
 using namespace blaster;
 using namespace OSDatas;
@@ -238,6 +236,11 @@ extern "C" void _start(BootInfo* bootInfo){
       GlobalRenderer->Print("no serial found.");
     }
     GlobalRenderer->Next();
+    GlobalRenderer->Print("TIME: ");
+    GlobalRenderer->Print(to_string((long int)getHours()));
+    GlobalRenderer->PutChar(':');
+    GlobalRenderer->Print(to_string((long int)getMinutes()));
+    GlobalRenderer->Next();
     int* foo;
     foo = (int*)_malloc(0xffffff);
     foo = (int*)_realloc(foo, 10 * sizeof(int));
@@ -258,22 +261,6 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->Next();
     printFill("i can print filed text hahaha");
     GlobalRenderer->Next();
-    GlobalRenderer->Print("TIME: ");
-    GlobalRenderer->Print(to_string((float)getHours()));
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->PutChar('.');
-    GlobalRenderer->Print(to_string((float)getMinutes()));
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->PutChar('.');
-    GlobalRenderer->Print(to_string((float)getSeconds()));
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->Next();
     //GlobalShell->Init(); //SHELL MODE
     MousePosition.X = ScreenWidth / 2;
     MousePosition.Y = ScreenHeight / 2;
@@ -286,20 +273,13 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 6));
     GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 7));
     GlobalRenderer->Next();
-    GlobalRenderer->Print(to_hstring((uint32_t)bootInfo->rsdp->RSDTAddress));
-    ACPI::FACPHeader* fadt;
-    outb(fadt->SMI_CMD, fadt->ACPI_ENABLE);
-    while (inw(fadt->PM1a_CNT_BLK) & 1 == 0);
-    GlobalRenderer->Print(to_hstring((uint32_t)fadt->PM1a_CNT_BLK));
-    GlobalRenderer->Next();
+    
     lock_scheduler();
     schedule();
     unlock_scheduler();
     terminate_task(5);
     cleanup_terminated_task(task2);
-
-    GlobalRenderer->PutPix(0, tga_parse((unsigned char*)"img.tga", (int)50.823), NULL);
-
+    
     for(;;){
       asm("hlt"); // imp cpu eff
       ProcessMousePacket();

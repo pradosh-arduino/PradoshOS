@@ -69,7 +69,7 @@ void HandleKeyboard(uint8_t scancode){
     }
 
     if(isF3Pressed == true){
-        shutdown();
+        //shutdown();
     }else{
         
     }

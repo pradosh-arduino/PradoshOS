@@ -18,7 +18,7 @@ namespace AHCI{
     #define HBA_PxCMD_ST 0x0001
     #define HBA_PxCMD_FR 0x4000
 
-    uint8_t PortBuff;
+    uint8_t* PortBuff;
 
     PortType CheckPortType(HBAPort* port){
         uint32_t sataStatus = port->sataStatus;
@@ -220,9 +220,10 @@ namespace AHCI{
             port->Read(0, 4, (void*)port->buffer);
             for (int t = 0; t < 1024; t++){
                 GlobalRenderer->PutChar(port->buffer[t]);
-                port->buffer[t] = PortBuff;
+                port->buffer[t] = PortBuff[t];
                 
             }
+            port->buffer[i] = PortBuff[i];
             GlobalRenderer->Next();
         }
 

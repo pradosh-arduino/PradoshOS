@@ -1,11 +1,11 @@
 #include "kernelUtil.h"
 #include "gdt/gdt.h"
 #include "IO.h"
-#include "memory/heap.h"
 #include "rtc.h"
 #include "interrupts/IDT.h"
 #include "interrupts/interrupts.h"
 #include "fade.h"
+#include "acpiBoot.c"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
@@ -71,6 +71,7 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
     InitPS2Mouse();
 
     PrepareACPI(bootInfo);
+    AcpiInit();
 
     outb(PIC1_DATA, 0b11111000);
     outb(PIC2_DATA, 0b11101111);

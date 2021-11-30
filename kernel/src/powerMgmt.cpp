@@ -17,7 +17,5 @@ void restart(){
 void shutdown(){
    terminate_task(4);
    cleanup_terminated_task(task2);
-   outw(0xB004, 0x2000);  //bochs
-   outw(0x604, 0x2000);   //qemu
-   outw(0x4004, 0x3400);  //vbox
-} 
+   __asm__ __volatile__ ("outw %1, %0" : : "dN" ((uint16_t)0xB004), "a" ((uint16_t)0x2000));
+}

@@ -25,23 +25,9 @@ typedef struct {
 	PSF1_HEADER* psf1_Header;
 	void* glyphBuffer;
 } PSF1_FONT;
-/*
-typedef struct{
-	bool FS0;
-	bool FS1;
-	bool FS2;
-	bool FS3;
-	bool FS4;
-	bool FS5;
-	bool FS6;
-	bool FS7;
-
-	bool BLK0;
-} FILE_READING;*/
 
 Framebuffer framebuffer;
 EFI_STATUS status;
-//FILE_READING fs;
 Framebuffer* InitializeGOP(){
 	EFI_GUID gopGuid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
 	EFI_GRAPHICS_OUTPUT_PROTOCOL* gop;
@@ -149,18 +135,47 @@ UINTN strcmp(CHAR8* a, CHAR8* b, UINTN length){
 
 EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	InitializeLib(ImageHandle, SystemTable);
-	Print(L"Booting to PradoshOS... \n\r");
+	Print(L"              PradX Bootloader (based on gnu-efi) v1.0\n\r");
+	Print(L"                           MIT License\n\r");
+	Print(L"THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n\r");
+	Print(L"IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n\r");
+	Print(L"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n\r");
+	Print(L"AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n\r");
+	Print(L"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n\r");
+	Print(L"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n\r");
+	Print(L"SOFTWARE.\n\r");
+	Print(L"\n\r");
+	Print(L"\n\r");
 	EFI_FILE* Kernel = LoadFile(NULL, L"kernel.elf", ImageHandle, SystemTable);
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
 	if (Kernel == NULL){
 		Print(L"Could not load kernel \n\r");
-		for(int w = 0; w < 3000; w++){
-			//asm("hlt");
-		}
-		SystemTable->RuntimeServices->ResetSystem(EfiResetWarm, EFI_SUCCESS, 0, 0);
 	}
 	else{
-		Print(L"Kernel loaded: \n\r");
 		Print(L"Kernel Loaded Successfully \n\r");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
 	}
 	EFI_FILE* Userland = LoadFile(NULL, L"userland.elf", ImageHandle, SystemTable);
 	if (Userland == NULL){
@@ -169,11 +184,12 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	else{
 		Print(L"Userland found!\n\r");
 	}
+	/*
 	Print(L"handleprotocol: \n\r");
 	uefi_call_wrapper(SystemTable->ConOut->SetAttribute, 1, SystemTable->ConOut, EFI_GREEN);
 	Print(L"%r", status);
 	uefi_call_wrapper(SystemTable->ConOut->SetAttribute, 1, SystemTable->ConOut, EFI_LIGHTGRAY);
-	Print(L"\n");
+	Print(L"\n");*/
 	Elf64_Ehdr header;
 	{
 		UINTN FileInfoSize;
@@ -233,7 +249,19 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
 	Print(L"Kernel Loaded\n\r");
 	
-
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	Print(L".\r");
+	for(int i=0;i<100;i++){
+		__asm__("hlt");
+	}
+	
 	PSF1_FONT* newFont = LoadPSF1Font(NULL, L"zap-light16.psf", ImageHandle, SystemTable);
 	if (newFont == NULL){
 		Print(L"Font is not valid or is not found\n\r");
@@ -295,6 +323,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	return EFI_SUCCESS; // Exit the UEFI application
 }
 EFI_SYSTEM_TABLE *SystemTable;
+/*
 void COLD_REBOOT()
 {
     // Hardware Reboot
@@ -313,4 +342,4 @@ void SHUTDOWN()
     // NOTE : This does not work in VirtualBox.
     // WORKS in QEMU !!!
     SystemTable->RuntimeServices->ResetSystem(EfiResetShutdown, EFI_SUCCESS, 0, 0);
-}
+}*/
