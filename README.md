@@ -80,62 +80,6 @@ Release Date: Unknown
  Error Screen:
  ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
  
-## Features
- # Stable interrupts
- 
- ```Interrupts is stable, now it will not show Page Fault randomly```
- 
- ![interrupts](https://user-images.githubusercontent.com/69463173/142414336-51f47f1c-cabd-4696-b218-99cb42f75884.png)
- 
- # Advanced CPU Fetching
- 
- ```I Use assembly style fetching cpu info, which is fast and can be run in cpp with the command asm();```
- 
- ![advanced-cpu-fetching](https://user-images.githubusercontent.com/69463173/142414423-3d37271e-c45e-40fe-8ae7-f0187a1335f0.png)
-
- # Simple ACPI
- 
- ```I didn't spent a lot time in ACPI, i only implented FindTable(); for AHCI```
- 
- ![acpi](https://user-images.githubusercontent.com/69463173/142414468-bc9e47c2-6bb8-46e6-a073-ae04079b8c75.png)
-
- # Compact Heap & Malloc
- 
- ```I spend a very long time doing malloc, because FOR SOME REASON the default MALLOC DOESN'T WORK (if you know e-mail me or DM me in Discord)```
- 
- ![malloc](https://user-images.githubusercontent.com/69463173/142414532-8c1f9fab-5d08-4843-8ec5-30530496b29d.png)
-
- # Easy to Understand PCI
- 
- ```PCI is a super feature in my OS now my pci is still unstable I will fix it in later builds```
- 
- ![pci](https://user-images.githubusercontent.com/69463173/142414629-a8799f18-d90c-4b32-9989-57d3ba701d51.png)
-
- # uncomplicated PIT-Timer
- 
- ```Very easy to use PIT-Timer```
- 
- ![pit-timer](https://user-images.githubusercontent.com/69463173/142414769-1400b839-3570-4b90-90ee-3159bfb1e870.png)
-
- # Easy RTC
- 
- ```easy to config the time and very small```
- 
- ![rtc](https://user-images.githubusercontent.com/69463173/142414840-1ea5bf2a-8b3e-4ff6-a8ad-ce245f0f33b4.png)
-
- # Basic Serial-COM
- 
- ```Serial COM 1-4 can be used, to fetch the COM details you need to add some commands, it will be soon```
- 
- ![serial-com](https://user-images.githubusercontent.com/69463173/142414898-2856b5ea-cd65-487e-8b17-909af22603d1.png)
-
- # Shell Mode
- 
- ```if you locate to kernel/src/kernel.cpp in line 297 there will be a command commented as // remove the // and compile it again you will enter shell mode```
- 
- ![shell](https://user-images.githubusercontent.com/69463173/142414951-2573fb58-3840-42cc-914f-f4c48c6ff08d.png)
-
-
 ## Font Package
  Right now there are some fonts (that I can find) which works with PradoshOS. to install a diffrent font follow the steps below
  
