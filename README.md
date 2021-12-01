@@ -132,7 +132,9 @@ Release Date: Unknown
  
 ## Credits
  There were some awesome people who helped me in my OS Dev journey they are
+ 
  Peko#5633 (discord)
+ 
  GAMINGNOOB#3589 (discord)
 
 # Contact
