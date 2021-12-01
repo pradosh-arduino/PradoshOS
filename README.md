@@ -129,6 +129,11 @@ Release Date: Unknown
     then paste it in OVMFbin
 
  *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
+ 
+## Credits
+ There were some awesome people who helped me in my OS Dev journey they are
+ Peko#5633 (discord)
+ GAMINGNOOB#3589 (discord)
 
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
