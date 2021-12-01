@@ -133,9 +133,9 @@ Release Date: Unknown
 ## Credits
  There were some awesome people who helped me in my OS Dev journey they are
  
- Peko#5633 (discord)
+ Peko#5633 ![dc](https://img.shields.io/static/v1?label=Discord&message=%3Cname%3E%3Cid%3E&color=green&logo=Discord)
  
- GAMINGNOOB#3589 (discord)
+ GAMINGNOOB#3589 ![dc](https://img.shields.io/static/v1?label=Discord&message=%3Cname%3E%3Cid%3E&color=green&logo=Discord)
 
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
