@@ -141,13 +141,14 @@ namespace AHCI{
             void StartCMD();
             void StopCMD();
             bool Read(uint64_t sector, uint32_t sectorCount, void* buffer);
+            PortType CheckPortType(HBAPort* port);
     };
     class AHCIDriver{
         public:
-        AHCIDriver(PCI::PCIDeviceHeader* pciBaseAdderess);
-        ~AHCIDriver();
         PCI::PCIDeviceHeader* PCIBaseAdderess;
         HBAMemory* ABAR;
+        AHCIDriver(PCI::PCIDeviceHeader* pciBaseAdderess);
+        ~AHCIDriver();
         void ProbePorts();
         Port* ports[32];
         uint8_t portCount;

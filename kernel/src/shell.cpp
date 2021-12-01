@@ -98,7 +98,7 @@ void Shell::HandleCommand(char* command){
         }
         GlobalRenderer->Colour = 0x00ffffff;
     }else if(__strcmp(command, "ls") == 0){
-        ls();
+        //ls();
     }else if(__strcmp(command, "") == 0){
         
     }else if(equalS((const char*)"print",command,4)){
@@ -170,22 +170,6 @@ void echo(const char* command){
      }
      GlobalRenderer->Next();
     }
-}
-
-void ls(){
-    GlobalRenderer->Colour = 0x0000ccff;
-    for(int i = 0;i < getTotalFiles(); i++){
-        asm("cli");
-        GlobalRenderer->Print(to_string((float)i));
-        GlobalRenderer->ClearChar();
-        GlobalRenderer->ClearChar();
-        GlobalRenderer->Print(getFileNameAt(i));
-        GlobalRenderer->Print("   ");
-        GlobalRenderer->Print(to_string((float)getFileSizeOf(i)));
-        GlobalRenderer->Print(" Bytes");
-        GlobalRenderer->Next();
-    }
-    GlobalRenderer->Colour = 0x00ffffff;
 }
 
 bool equalS(const char* a, const char* b,int till){

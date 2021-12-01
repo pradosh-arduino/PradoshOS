@@ -6,9 +6,15 @@
 #include "interrupts/interrupts.h"
 #include "fade.h"
 #include "acpiBoot.c"
+#include "fat_fs/filesystems/fat.h"
+#include "fat_fs/filesystems/fs.h"
+#include "fs.h"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
+
+using namespace AHCI;
+
 void PrepareMemory(BootInfo* bootInfo){
     uint64_t mMapEntries = bootInfo->mMapSize / bootInfo->mMapDescSize;
 
@@ -70,8 +76,20 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     InitPS2Mouse();
 
+    AHCIDriver* add;
+    AHCIDriver(add->PCIBaseAdderess);
+
+
     PrepareACPI(bootInfo);
     AcpiInit();
+
+    Directory* ffs;
+    File* files;
+    FileSystem(NULL);
+    init_fs();
+    const char* content = "ggggrwegwwgewwgewggwe";
+    create_file("log.txt", (char*)content);
+    ls();
 
     outb(PIC1_DATA, 0b11111000);
     outb(PIC2_DATA, 0b11101111);

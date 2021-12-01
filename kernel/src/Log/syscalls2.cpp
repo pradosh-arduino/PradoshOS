@@ -1,5 +1,6 @@
 #include "syscalls2.h"
 #include "../BasicRenderer.h"
+#include "../fs.h"
 
 void Syscalls::Debug(const char* str){
     GlobalRenderer->Print("[");

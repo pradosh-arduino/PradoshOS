@@ -43,14 +43,14 @@
 #include <stdlib.h>
 //#include <iostream>
 //#include <string>
-#include "apps/testapp.h"
+
 //file reading
 #include <stdio.h>
 #include <stdlib.h>
 #include "COM.h"
 //file reading
 #include "Log/syscalls2.h"
-#include "progLang/code.h"
+
 #include "errorScreen/errScr.h"
 
 #include "malloc.h"

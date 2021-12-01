@@ -156,38 +156,23 @@ namespace AHCI{
                 PortType portType = CheckPortType(&ABAR->ports[i]);
                 if(portType == PortType::SATA){
                     GlobalRenderer->Print("SATA Drive detected! (hard disk drive) at port:");
-                    GlobalRenderer->Print(to_string((float)i));
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
+                    GlobalRenderer->Print(to_string((long int)i));
                     GlobalRenderer->Next();
                 }else if(portType == PortType::SATAPI){
                     GlobalRenderer->Print("SATAPI Drive detected! (Optical Drive) at port:");
-                    GlobalRenderer->Print(to_string((float)i));
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
+                    GlobalRenderer->Print(to_string((long int)i));
                     GlobalRenderer->Next();
                 }else if(portType == PortType::PM){
                     GlobalRenderer->Print("PM Drive detected! at port:");
-                    GlobalRenderer->Print(to_string((float)i));
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
+                    GlobalRenderer->Print(to_string((long int)i));
                     GlobalRenderer->Next();
                 }else if(portType == PortType::SEMB){
                     GlobalRenderer->Print("SEMB Drive detected! at port:");
-                    GlobalRenderer->Print(to_string((float)i));
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
+                    GlobalRenderer->Print(to_string((long int)i));
                     GlobalRenderer->Next();
                 }else{
                     GlobalRenderer->Print("Not Connected or Unknown drive! at port:");
-                    GlobalRenderer->Print(to_string((float)i));
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
-                    GlobalRenderer->ClearChar();
+                    GlobalRenderer->Print(to_string((long int)i));
                     GlobalRenderer->Next();
                 }
                 if(portType == PortType::SATA || portType == PortType::SATAPI){
@@ -218,13 +203,6 @@ namespace AHCI{
             port->Configure();
             memset((void*)port->buffer, 0, 0x1000);
             port->Read(0, 4, (void*)port->buffer);
-            for (int t = 0; t < 1024; t++){
-                GlobalRenderer->PutChar(port->buffer[t]);
-                port->buffer[t] = PortBuff[t];
-                
-            }
-            port->buffer[i] = PortBuff[i];
-            GlobalRenderer->Next();
         }
 
     }
