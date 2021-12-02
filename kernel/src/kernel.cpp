@@ -235,12 +235,7 @@ extern "C" void _start(BootInfo* bootInfo){
     }else{
       GlobalRenderer->Print("no serial found.");
     }
-    GlobalRenderer->Next();
-    GlobalRenderer->Print("TIME: ");
-    GlobalRenderer->Print(to_string((long int)getHours()));
-    GlobalRenderer->PutChar(':');
-    GlobalRenderer->Print(to_string((long int)getMinutes()));
-    GlobalRenderer->Next();
+    
     int* foo;
     foo = (int*)_malloc(0xffffff);
     foo = (int*)_realloc(foo, 10 * sizeof(int));
@@ -279,6 +274,19 @@ extern "C" void _start(BootInfo* bootInfo){
     unlock_scheduler();
     terminate_task(5);
     cleanup_terminated_task(task2);
+
+    int length = strlen((char*)to_string((long int)getHours()));
+    int lenght2 = strlen((char*)to_string((long int)getMinutes()));
+    int add = length + lenght2;
+    Point LastCurPos = GlobalRenderer->CursorPosition;
+    Point CurPosTime = {ScreenWidth - 80, 0};
+    GlobalRenderer->CursorPosition = CurPosTime;
+    GlobalRenderer->Print("Time:");
+    GlobalRenderer->Print(to_string((long int)getHours()));
+    GlobalRenderer->PutChar(':');
+    GlobalRenderer->Print(to_string((long int)getMinutes()));
+
+    PutTime();
     
     for(;;){
       asm("hlt"); // imp cpu eff
