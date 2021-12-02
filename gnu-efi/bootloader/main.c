@@ -137,6 +137,21 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	InitializeLib(ImageHandle, SystemTable);
 	Print(L"              PradX Bootloader (based on gnu-efi) v1.0\n\r");
 	Print(L"                           MIT License\n\r");
+	Print(L"                Copyright (c) 2021 Pradosh Company\n\r");
+	Print(L"\n\r");
+	Print(L"\n\r");
+	Print(L"Permission is hereby granted, free of charge, to any person obtaining a copy\n\r");
+	Print(L"of this software and associated documentation files (the 'Software'), to deal\n\r");
+	Print(L"in the Software without restriction, including without limitation the rights\n\r");
+	Print(L"to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n\r");
+	Print(L"copies of the Software, and to permit persons to whom the Software is\n\r");
+	Print(L"furnished to do so, subject to the following conditions:\n\r");
+	Print(L"\n\r");
+	Print(L"\n\r");
+	Print(L"The above copyright notice and this permission notice shall be included in all\n\r");
+	Print(L"copies or substantial portions of the Software.\n\r");
+	Print(L"\n\r");
+	Print(L"\n\r");
 	Print(L"THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n\r");
 	Print(L"IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n\r");
 	Print(L"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n\r");
@@ -147,35 +162,11 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	Print(L"\n\r");
 	Print(L"\n\r");
 	EFI_FILE* Kernel = LoadFile(NULL, L"kernel.elf", ImageHandle, SystemTable);
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
 	if (Kernel == NULL){
 		Print(L"Could not load kernel \n\r");
 	}
 	else{
 		Print(L"Kernel Loaded Successfully \n\r");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
 	}
 	EFI_FILE* Userland = LoadFile(NULL, L"userland.elf", ImageHandle, SystemTable);
 	if (Userland == NULL){
@@ -248,20 +239,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	}
 
 	Print(L"Kernel Loaded\n\r");
-	
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	Print(L".\r");
-	for(int i=0;i<100;i++){
-		__asm__("hlt");
-	}
-	
+		
 	PSF1_FONT* newFont = LoadPSF1Font(NULL, L"zap-light16.psf", ImageHandle, SystemTable);
 	if (newFont == NULL){
 		Print(L"Font is not valid or is not found\n\r");
