@@ -1,6 +1,6 @@
 ### Welcome To PradoshOS Github!
 
-Latest Version: Dev Build 00001
+Latest Version: Vbox-bootable-v0.0.6
 
 License: MIT
 
