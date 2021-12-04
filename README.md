@@ -74,15 +74,13 @@ Release Date: Unknown
  
 ## Pictures
  Main Screen:
- 
- ![pradoshOS](https://user-images.githubusercontent.com/69463173/143993222-3f507fa5-a6a1-42c5-a9ba-243910edef73.PNG)
+ ![pradoshOS](https://user-images.githubusercontent.com/69463173/144696388-b1ebb234-a0f6-4328-a73a-7adecfb30a6d.PNG) 
  
  Error Screen:
  ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
  
  Bootloader:
- ![bootloader](https://user-images.githubusercontent.com/69463173/143993269-e6114d13-53ea-4799-8912-d7bba921e13f.png)
-
+ ![bootld](https://user-images.githubusercontent.com/69463173/144696398-f3120243-5879-47fc-b79f-46b46bf5608c.png)
  
 ## Font Package
  Right now there are some fonts (that I can find) which works with PradoshOS. to install a diffrent font follow the steps below
