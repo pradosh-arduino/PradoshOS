@@ -74,7 +74,8 @@ Release Date: Unknown
  
 ## Pictures
  Main Screen:
- ![pradoshOS](https://user-images.githubusercontent.com/69463173/144696388-b1ebb234-a0f6-4328-a73a-7adecfb30a6d.PNG) 
+ ![os](https://user-images.githubusercontent.com/69463173/144696429-d5a671d5-1cab-47ab-8f84-3a5b181c1ef3.png)
+
  
  Error Screen:
  ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
