@@ -1,6 +1,6 @@
 ### Welcome To PradoshOS Github!
 
-Latest Version: Dev Build 00001
+Latest Version: Vbox-bootable-v0.0.6
 
 License: MIT
 
@@ -117,10 +117,7 @@ Release Date: Unknown
    https://www.geeksforgeeks.org/5-operating-system-concepts-you-should-know-as-a-developer/
    
    more at: https://wiki.osdev.org
-   
-## Remake, or edit
-   If you want to edit my OS and make your own sure go ahead **BUT** you must credit me like `Based On PradoshOS github.com/pradosh-arduino/PradoshOS` **AND** you need to e-mail me
-   
+      
 ## Problems
  **Q: Qemu stuck while booting (Tiano Core)**
  
