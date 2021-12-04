@@ -96,6 +96,7 @@ static void AcpiParseFacp(AcpiFadt *facp)
     {
         GlobalRenderer->Print("Enabling ACPI");
         outb(facp->smiCommandPort, facp->acpiEnable);
+        GlobalRenderer->Print("ACPI enabled!");
 
         // TODO - wait for SCI_EN bit
     }
@@ -270,7 +271,7 @@ static bool AcpiParseRsdp(uint8_t *p)
     uint8_t revision = p[15];
     if (revision == 0)
     {
-        GlobalRenderer->Print("Version 1\n");
+        GlobalRenderer->Print("Version 1");
 
         uint32_t rsdtAddr = *(uint32_t *)(p + 16);
         AcpiParseRsdt((AcpiHeader *)(uintptr_t)rsdtAddr);

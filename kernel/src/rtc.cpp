@@ -1,7 +1,12 @@
 #include "rtc.h"
 #include "IO.h"
+#include "BasicRenderer.h"
+#include "cstr.h"
+#include "scheduling/pit/pit.h"
+#include "addons.h"
 
 long long TimeAtBoot = 0;
+
 int readPit(void) {
 	unsigned count = 0;
 	asm("cli");
@@ -54,4 +59,18 @@ long long currentTime(){
 } 
 long long getTimeFromBoot(){
     return (getSeconds()+(getMinutes()*60)+(getHours()*3600))-TimeAtBoot;
+}
+
+void PutTime(){
+    //int length = strlen((char*)to_string((long int)getHours()));
+    //int lenght2 = strlen((char*)to_string((long int)getMinutes()));
+    //Point LastCurPos = GlobalRenderer->CursorPosition;
+    //Point CurPosTime = {ScreenWidth2 - (length + lenght2), 0};
+    //GlobalRenderer->CursorPosition = CurPosTime;
+    //GlobalRenderer->Print(to_string((long int)getHours()));
+    //GlobalRenderer->PutChar(':');
+    //GlobalRenderer->Print(to_string((long int)getMinutes()));
+    //PIT::Sleepd(1);
+    //GlobalRenderer->CursorPosition = LastCurPos;
+    //PutTime();
 }

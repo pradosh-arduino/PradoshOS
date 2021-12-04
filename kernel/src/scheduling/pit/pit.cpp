@@ -1,5 +1,7 @@
 #include "pit.h"
 #include "../../IO.h"
+#include "../../userinput/mouse.h"
+
 namespace PIT{
     double TimeSinceBoot = 0;
     uint16_t Divisor = 65535;
@@ -8,6 +10,7 @@ namespace PIT{
         double startTime = TimeSinceBoot;
         while (TimeSinceBoot < startTime + seconds){
             asm("hlt");
+            ProcessMousePacket();
         }
     }
     void Sleep(uint64_t milliseconds){

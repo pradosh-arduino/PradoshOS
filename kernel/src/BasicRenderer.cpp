@@ -189,3 +189,9 @@ void BasicRenderer::Scroll(){
     ClearLine(CursorPosition.Y);
     CursorPosition.Y--;
 }
+
+void BasicRenderer::Seperator(){
+    for(int i = 0; i < TargetFramebuffer->Width; i++){
+        PutPix(i, CursorPosition.Y, 0x00ffffff);
+    }
+}

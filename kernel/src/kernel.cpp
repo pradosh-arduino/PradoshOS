@@ -275,22 +275,25 @@ extern "C" void _start(BootInfo* bootInfo){
     terminate_task(5);
     cleanup_terminated_task(task2);
 
-    int length = strlen((char*)to_string((long int)getHours()));
-    int lenght2 = strlen((char*)to_string((long int)getMinutes()));
-    int add = length + lenght2;
-    Point LastCurPos = GlobalRenderer->CursorPosition;
-    Point CurPosTime = {ScreenWidth - 80, 0};
-    GlobalRenderer->CursorPosition = CurPosTime;
-    GlobalRenderer->Print("Time:");
-    GlobalRenderer->Print(to_string((long int)getHours()));
-    GlobalRenderer->PutChar(':');
-    GlobalRenderer->Print(to_string((long int)getMinutes()));
-
     PutTime();
     
     for(;;){
       asm("hlt"); // imp cpu eff
       ProcessMousePacket();
+      int length = strlen((char*)to_string((long int)getHours()));
+      int lenght2 = strlen((char*)to_string((long int)getMinutes()));
+      int add = length + lenght2;
+      Point LastCurPos = GlobalRenderer->CursorPosition;
+      Point CurPosTime = {ScreenWidth - 80, 0};
+      GlobalRenderer->CursorPosition = CurPosTime;
+      GlobalRenderer->Print("Time:");
+      GlobalRenderer->Print(to_string((long int)getHours()));
+      GlobalRenderer->PutChar(':');
+      GlobalRenderer->Print(to_string((long int)getMinutes()));
+      PIT::Sleepd(12);
+      for(int i = 0; i < add + 6; i++){
+        GlobalRenderer->ClearChar();
+      }
     }
 while(true);
 }

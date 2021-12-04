@@ -27,6 +27,7 @@ class BasicRenderer{
     void Println(const char* s);
     void ClearLine(int line);
     void Scroll();
+    void Seperator();
     bool MouseDrawn;
 };
 extern BasicRenderer* GlobalRenderer;

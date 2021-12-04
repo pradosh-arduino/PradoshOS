@@ -70,6 +70,21 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     PrepareInterrupts();
 
+    GlobalRenderer->Colour = 0x0000ccff;
+    GlobalRenderer->Print("PradoshOS by Pradosh.S");
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("Source code: https://github.com/pradosh-arduino/PradoshOS");
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("Font package: https://github.com/pradosh-arduino/Font-Package");
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("App package: https://github.com/pradosh-arduino/App-Package");
+    GlobalRenderer->Colour = 0x00FFFFFF;
+    GlobalRenderer->Next();
+    GlobalRenderer->Next();
+    GlobalRenderer->Seperator();
+    GlobalRenderer->Next();
+    GlobalRenderer->Next();
+
     //InitializeHeap((void*)0x0000100000000000, 0x10);
     PageFrameAllocator* rsvPg;
     rsvPg->ReservePages((void*)0x100000 , 256);
@@ -94,7 +109,7 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
     outb(PIC1_DATA, 0b11111000);
     outb(PIC2_DATA, 0b11101111);
 
-    asm ("sti");
+    asm("sti");
     
     return kernelInfo;
 }
