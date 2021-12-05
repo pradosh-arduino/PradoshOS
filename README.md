@@ -1,11 +1,6 @@
 ### Welcome To PradoshOS Github!
 
-Latest Version: Vbox-bootable-v0.0.7
-
-License: MIT
-
-Release Date: Unknown
-
+![Untitled-1](https://user-images.githubusercontent.com/69463173/144747089-ec755c8a-4fa6-488b-a05e-83b88a0456bd.png)
 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=pradosh-arduino&show_icons=true)
 
