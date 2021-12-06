@@ -116,6 +116,8 @@
    
    http://pciengine.com/
    
+   https://www.wfbsoftware.de/realtek-rtl8139-network-interface-card/
+   
    more at: https://wiki.osdev.org
       
 ## Problems
