@@ -1,11 +1,6 @@
 ### Welcome To PradoshOS Github!
 
-Latest Version: Vbox-bootable-v0.0.6
-
-License: MIT
-
-Release Date: Unknown
-
+![Untitled-1](https://user-images.githubusercontent.com/69463173/144747089-ec755c8a-4fa6-488b-a05e-83b88a0456bd.png)
 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=pradosh-arduino&show_icons=true)
 
@@ -74,15 +69,15 @@ Release Date: Unknown
  
 ## Pictures
  Main Screen:
- 
- ![pradoshOS](https://user-images.githubusercontent.com/69463173/143993222-3f507fa5-a6a1-42c5-a9ba-243910edef73.PNG)
+ ![os](https://user-images.githubusercontent.com/69463173/144696429-d5a671d5-1cab-47ab-8f84-3a5b181c1ef3.png)
+
  
  Error Screen:
  ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
  
  Bootloader:
- ![bootloader](https://user-images.githubusercontent.com/69463173/143993269-e6114d13-53ea-4799-8912-d7bba921e13f.png)
-
+ 
+ ![bootld](https://user-images.githubusercontent.com/69463173/144696398-f3120243-5879-47fc-b79f-46b46bf5608c.png)
  
 ## Font Package
  Right now there are some fonts (that I can find) which works with PradoshOS. to install a diffrent font follow the steps below
