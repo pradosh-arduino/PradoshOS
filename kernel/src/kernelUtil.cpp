@@ -12,6 +12,7 @@
 #include "fs.h"
 #include "imgBitmap.h"
 #include "pic.h"
+#include "ethernet/RTL8139.h"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
@@ -99,6 +100,8 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     //AHCIDriver* ahciM;
     //fs_init(ahciM);
+
+    rtl8139->Init();
 
     if(does_file_exists("log.txt")){
 

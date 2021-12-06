@@ -194,15 +194,15 @@ void BasicRenderer::Scroll(int line){
 	//CursorPosition.Y = TargetFramebuffer->Width - 1;
 
      // Move up
-    void * start = (void*)TargetFramebuffer->Height + 1 * TargetFramebuffer->Width * line;
-    uint32_t size = CursorPosition.Y * TargetFramebuffer->Width * line;
-    void* tfbHeight = (void*)TargetFramebuffer->Height;
-
-    _memcpy((void*)TargetFramebuffer->Height, start, size);
-    // Delete
-    start = tfbHeight + size;
-    memsetw((uint16_t*)start, 0x00, TargetFramebuffer->Width);
-    CursorPosition.Y--;
+    //void * start = (void*)TargetFramebuffer->Height + 1 * TargetFramebuffer->Width * line;
+    //uint32_t size = CursorPosition.Y * TargetFramebuffer->Width * line;
+    //void* tfbHeight = (void*)TargetFramebuffer->Height;
+    
+    //_memcpy((void*)TargetFramebuffer->Height, start, size);
+    //// Delete
+    //start = tfbHeight + size;
+    //memsetw((uint16_t*)start, 0x00, TargetFramebuffer->Width);
+    //CursorPosition.Y--;
 }
 
 void BasicRenderer::Seperator(){
