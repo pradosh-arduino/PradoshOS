@@ -112,6 +112,10 @@
    
    https://www.geeksforgeeks.org/5-operating-system-concepts-you-should-know-as-a-developer/
    
+   https://www.pcilookup.com/
+   
+   http://pciengine.com/
+   
    more at: https://wiki.osdev.org
       
 ## Problems
