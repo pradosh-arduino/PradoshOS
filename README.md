@@ -1,6 +1,6 @@
 ### Welcome To PradoshOS Github!
 
-![Untitled-1](https://user-images.githubusercontent.com/69463173/144747089-ec755c8a-4fa6-488b-a05e-83b88a0456bd.png)
+![Untitled-1](https://user-images.githubusercontent.com/69463173/144822865-e740934e-7358-4b68-9e23-b0591941c65d.png)
 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=pradosh-arduino&show_icons=true)
 
@@ -69,7 +69,8 @@
  
 ## Pictures
  Main Screen:
- ![os](https://user-images.githubusercontent.com/69463173/144696429-d5a671d5-1cab-47ab-8f84-3a5b181c1ef3.png)
+ ![Capture](https://user-images.githubusercontent.com/69463173/144822958-1ba50442-ef48-4bd0-a21c-c9d027fccc9b.PNG)
+
 
  
  Error Screen:
@@ -111,6 +112,12 @@
    
    https://www.geeksforgeeks.org/5-operating-system-concepts-you-should-know-as-a-developer/
    
+   https://www.pcilookup.com/
+   
+   http://pciengine.com/
+   
+   https://www.wfbsoftware.de/realtek-rtl8139-network-interface-card/
+   
    more at: https://wiki.osdev.org
       
 ## Problems
@@ -119,15 +126,17 @@
  A: That means UEFI binaries had corrupted which is a normal thing, goto
     https://github.com/pradosh-arduino/UEFI-Firmware and download the files
     then paste it in OVMFbin
+    
+ *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
 
  *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
  
 ## Credits
  There were some awesome people who helped me in my OS Dev journey they are
  
- Peko#5633       ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
+ Peko#5633 ㅤㅤㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
  
- GAMINGNOOB#3589 ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
+ GAMINGNOOB#3589ㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
 
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
