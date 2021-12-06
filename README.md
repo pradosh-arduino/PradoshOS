@@ -8,6 +8,8 @@
 
 <a href="https://www.buymeacoffee.com/pradoshArduino"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=pradoshArduino&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"></a>
 
+[![wws](https://img.shields.io/github/v/tag/pradosh-arduino/PradoshOS?label=Latest%20version)](https://github.com/pradosh-arduino/PradoshOS/releases)
+
 ## Setup
 
  if your building any OS for first time, you have a lot to install
