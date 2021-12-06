@@ -119,6 +119,8 @@
  A: That means UEFI binaries had corrupted which is a normal thing, goto
     https://github.com/pradosh-arduino/UEFI-Firmware and download the files
     then paste it in OVMFbin
+    
+ *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
 
  *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
  
