@@ -26,7 +26,7 @@ class BasicRenderer{
     void ClearMouseCursor(uint8_t* mouseCursor, Point position);
     void Println(const char* s);
     void ClearLine(int line);
-    void Scroll();
+    void Scroll(int line);
     void Seperator();
     bool MouseDrawn;
 };

@@ -152,10 +152,13 @@ struct FAT_ClusterChain{
     void GetChain(AHCI::Port* port, uint32_t first);
 };
 
+
 class Fat : public FileSystem {
 public:
-    Fat(const AHCI::Port* port, const uint32_t PartitionOffset, const bool useGPT);
-    ~Fat();
+
+    void FatH(const AHCI::AHCIDriver* port, const uint32_t PartitionOffset, const bool useGPT);
+
+    Fat();
 
     void Init();
 

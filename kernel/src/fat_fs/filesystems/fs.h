@@ -65,8 +65,7 @@ private:
 };
 
 struct FileSystem{
-    FileSystem(AHCI::Port* foo);
-    ~FileSystem();
+    void FileSystemH(AHCI::Port* foo);
 
     Directory* GetDirectory(const char* path);
     File* GetFile(const char* path);

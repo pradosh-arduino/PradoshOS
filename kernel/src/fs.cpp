@@ -197,16 +197,3 @@ void set(int *a, int *b)
 		a[i] = b[i];
 	}
 }
-
-char *malloc(int len)
-{
-   int last_index;
-	int out = last_index;
-	char *temp = (char *)0x0;
-	for (int i = 0; i < len; i++)
-	{
-		temp[last_index + i] = 0;
-	}
-	last_index += len;
-	return (char *)out;
-}

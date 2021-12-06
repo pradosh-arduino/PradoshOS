@@ -1,5 +1,6 @@
 #include "malloc.h"
 #include "cstr.h"
+#include "IO.h"
 
 const int MAX_CPU_COUNT = 10;
 
@@ -7,7 +8,6 @@ uint8_t *g_localApicAddr;
 
 uint32_t g_acpiCpuCount;
 uint8_t g_acpiCpuIds[MAX_CPU_COUNT];
-
 
 typedef struct AcpiHeader
 {
@@ -88,6 +88,7 @@ typedef struct ApicInterruptOverride
 
 // ------------------------------------------------------------------------------------------------
 static AcpiMadt *s_madt;
+static AcpiFadt *s_fadt;
 
 // ------------------------------------------------------------------------------------------------
 static void AcpiParseFacp(AcpiFadt *facp)
@@ -354,3 +355,21 @@ uint AcpiRemapIrq(uint irq)
 
     return irq;
 }
+
+__attribute__((noreturn))
+void shutdown()
+{
+  asm("cli");
+
+  // ACPI shutdown
+  outw(s_fadt->preferredPMProfile, 1<<13);
+
+  outw (0xB004, 0x2000);
+
+  // magic code for bochs and qemu
+  const char* s = "Shutdown";
+  while (*s) outb (0x8900, *(s++));
+ 
+  // VMWare poweroff when "gui.exitOnCLIHLT" is true
+  while (true) asm ("cli; hlt");
+} // shutdown()

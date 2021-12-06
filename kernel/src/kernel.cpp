@@ -14,11 +14,9 @@
 #include "userinput/keyboard.h"
 //userinput
 //interupts
-#include "ahci/ahci.h"
+#include "fat_fs/fat_init.h"
 //interupts
-#include "Screen.h"
-#include "bootscr.h"
-#include "Sound.h"
+
 //user
 #include "GUI.h"
 //efimemory
@@ -30,7 +28,6 @@
 
 //memory
 #include "PradX.h"
-#include "colours.h"
 //limine
 #include <stdint.h>
 #include <stdio.h>
@@ -61,12 +58,13 @@
 #include "shell.h"
 #include "fs.h"
 #include "fade.h"
+#include "pic.h"
+
+#include "ata/ata.h"
 
 using namespace std;
 
-using namespace blaster;
 using namespace OSDatas;
-using namespace AHCI;
 
 extern "C" void _start(BootInfo* bootInfo){
     KernelInfo kernelInfo = InitializeKernel(bootInfo);
@@ -90,6 +88,7 @@ extern "C" void _start(BootInfo* bootInfo){
     int RamCursorPos = 0;
     Syscalls* LogRenderer;
 
+    //ata_init();
     //fade();
 
     //memset(bootInfo->framebuffer->BaseAddress, 0, bootInfo->framebuffer->BufferSize);
@@ -267,16 +266,28 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 5));
     GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 6));
     GlobalRenderer->PutChar(*((uint8_t*)bootInfo->rsdp + 7));
-    GlobalRenderer->Next();
-    
+    GlobalRenderer->Next();  
+
     lock_scheduler();
     schedule();
     unlock_scheduler();
     terminate_task(5);
     cleanup_terminated_task(task2);
+    TextBox(500, 500, 400, 130, 0x00ffffff, 0, "Welcome to PradoshOS");
+    Point LasDatePos = GlobalRenderer->CursorPosition;
+    GlobalRenderer->CursorPosition = {ScreenWidth - 0x88, 16};
+    GlobalRenderer->Print("DD:");
+    GlobalRenderer->Print(to_string((long int)rtc_get_day()));
+    GlobalRenderer->PutChar(' ');
+    GlobalRenderer->Print("MM:");
+    GlobalRenderer->Print(to_string((long int)rtc_get_month() - 6));
+    GlobalRenderer->PutChar(' ');
+    GlobalRenderer->Print("YY:");
+    GlobalRenderer->Print(to_string((long int)rtc_get_year() - 12));
+    GlobalRenderer->CursorPosition = LasDatePos;
 
-    PutTime();
-    
+    GlobalRenderer->Next();
+
     for(;;){
       asm("hlt"); // imp cpu eff
       ProcessMousePacket();
@@ -284,7 +295,7 @@ extern "C" void _start(BootInfo* bootInfo){
       int lenght2 = strlen((char*)to_string((long int)getMinutes()));
       int add = length + lenght2;
       Point LastCurPos = GlobalRenderer->CursorPosition;
-      Point CurPosTime = {ScreenWidth - 80, 0};
+      Point CurPosTime = {ScreenWidth - 0x50, 0};
       GlobalRenderer->CursorPosition = CurPosTime;
       GlobalRenderer->Print("Time:");
       GlobalRenderer->Print(to_string((long int)getHours()));
@@ -294,6 +305,7 @@ extern "C" void _start(BootInfo* bootInfo){
       for(int i = 0; i < add + 6; i++){
         GlobalRenderer->ClearChar();
       }
+      
     }
 while(true);
 }

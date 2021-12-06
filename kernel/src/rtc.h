@@ -7,4 +7,6 @@ long long currentTime();
 int getHours();
 int getMinutes();
 int getSeconds();
-void PutTime();
+uint8_t rtc_get_year();
+uint8_t rtc_get_month();
+uint8_t rtc_get_day();

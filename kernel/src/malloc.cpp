@@ -15,6 +15,18 @@ void* _malloc(size_t sz)
     next_index += sz;
     return mem;
 }
+int _Kmalloc(size_t sz)
+{
+    newBlock->free = false;
+    int mem;
+
+    if(sizeof our_memory - next_index < sz)
+        return 0;
+
+    //mem = (int)&our_memory[next_index];
+    next_index += sz;
+    return mem;
+}
 void _free(void* address){
     newBlock->free = true;
     delete address;

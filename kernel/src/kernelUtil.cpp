@@ -8,7 +8,10 @@
 #include "acpiBoot.c"
 #include "fat_fs/filesystems/fat.h"
 #include "fat_fs/filesystems/fs.h"
+#include "fat_fs/fat_init.h"
 #include "fs.h"
+#include "imgBitmap.h"
+#include "pic.h"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
@@ -43,12 +46,13 @@ void PrepareMemory(BootInfo* bootInfo){
     }
 
     asm ("mov %0, %%cr3" : : "r" (PML4));
-    kernelInfo.pageTableManager = &pageTableManager;
+
+    kernelInfo.pageTableManager = &g_PageTableManager;
 }
 
 void PrepareACPI(BootInfo* bootInfo){
     ACPI::SDTHeader* xsdt = (ACPI::SDTHeader*)(bootInfo->rsdp->XSDTAddress);
-
+    
     ACPI::MCFGHeader* mcfg = (ACPI::MCFGHeader*)ACPI::FindTable(xsdt, (char*)"MCFG");
 
     PCI::EnumeratePCI(mcfg);
@@ -76,13 +80,10 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
     GlobalRenderer->Print("Source code: https://github.com/pradosh-arduino/PradoshOS");
     GlobalRenderer->Next();
     GlobalRenderer->Print("Font package: https://github.com/pradosh-arduino/Font-Package");
-    GlobalRenderer->Next();
-    GlobalRenderer->Print("App package: https://github.com/pradosh-arduino/App-Package");
     GlobalRenderer->Colour = 0x00FFFFFF;
     GlobalRenderer->Next();
     GlobalRenderer->Next();
     GlobalRenderer->Seperator();
-    GlobalRenderer->Next();
     GlobalRenderer->Next();
 
     //InitializeHeap((void*)0x0000100000000000, 0x10);
@@ -91,20 +92,22 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     InitPS2Mouse();
 
-    AHCIDriver* add;
-    AHCIDriver(add->PCIBaseAdderess);
-
-
     PrepareACPI(bootInfo);
     AcpiInit();
 
-    Directory* ffs;
-    File* files;
-    FileSystem(NULL);
-    init_fs();
-    const char* content = "ggggrwegwwgewwgewggwe";
-    create_file("log.txt", (char*)content);
+    //pic_init();
+
+    //AHCIDriver* ahciM;
+    //fs_init(ahciM);
+
+    if(does_file_exists("log.txt")){
+
+    }else {
+        create_file("log.txt", "creation of log");
+    }
+
     ls();
+
 
     outb(PIC1_DATA, 0b11111000);
     outb(PIC2_DATA, 0b11101111);

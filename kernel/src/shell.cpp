@@ -104,9 +104,9 @@ void Shell::HandleCommand(char* command){
     }else if(equalS((const char*)"print",command,4)){
         echo(command);
     }else if(__strcmp(command, "shutdown") == 0){
-        shutdown();
+        //shutdown();
     }else if(__strcmp(command, "reboot") == 0){
-        restart();
+        //restart();
     }else if(__strcmp(command, "InitSerial") == 0){
         if(isSerialInit == false){
             //GlobalSerial->serial_configure_baud_rate(0x3F8, 9600);

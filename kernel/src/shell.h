@@ -6,7 +6,6 @@
 #include "CPUID.h"
 #include "rtc.h"
 #include "fs.h"
-#include "powerMgmt.h"
 #include "COM.h"
 #include "cstr.h"
 #include "ahci/ahci.h"

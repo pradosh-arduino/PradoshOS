@@ -46,13 +46,16 @@ void FAT_ClusterChain::GetChain(AHCI::Port* port, uint32_t first) {
 */
 bool dbg;
 
-/*
-Fat::Fat(const AHCI::Port* port, const uint32_t PartitionOffset, const bool useGPT) {
+
+
+void Fat::FatH(const AHCI::AHCIDriver* port, const uint32_t PartitionOffset, const bool useGPT) {
     this->PartitionOffset = PartitionOffset;
     this->gpt = useGPT;
-}*/
+}
 
-Fat::~Fat() {}
+Fat::Fat(){
+
+}
 
 void Fat::Init() {
     port->Read( gpt ? PartitionOffset : PartitionOffset, (sizeof( FAT_BiosParameterBlock ) / 512 < 1) ? 1 : sizeof( FAT_BiosParamBlock ) / 512, &this->FAT_BiosParamBlock );
@@ -179,7 +182,7 @@ void Fat::Init() {
     return;
 }
 
-File* GetFile(const char* path) {
+File* Fat::GetFile(const char* path) {
     File* file = new File(path, NULL);
     char* ReadContents = "This is not read (yet) !\0";
     uint32_t Size = 0;

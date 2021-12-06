@@ -1,8 +1,8 @@
 #include <stdint.h>
 #include "cstr.h"
 
-namespace PCI{
-    const char* DeviceClasses[]{
+namespace PCI {
+    const char* DeviceClasses[] {
         "Unclassified",
         "Mass Storage Controller",
         "Network Controller",
@@ -33,28 +33,28 @@ namespace PCI{
                 return "AMD";
             case 0x10DE:
                 return "NVIDIA Corporation";
-            
         }
         return to_hstring(vendorID);
     }
 
     const char* GetDeviceName(uint16_t vendorID, uint16_t deviceID){
         switch (vendorID){
-            case 0x8086:
+            case 0x8086: // Intel
                 switch(deviceID){
                     case 0x29C0:
-                        return "Express DRAM Controller";  
+                        return "Express DRAM Controller";
                     case 0x2918:
                         return "LPC Interface Controller";
                     case 0x2922:
-                        return "6 Port Serial ATA (SATA) Controller [AHCI mode]";
+                        return "6 port SATA Controller [AHCI mode]";
                     case 0x2930:
                         return "SMBus Controller";
                 }
         }
         return to_hstring(deviceID);
     }
-    const char* MassStorageContollerSubclassName(uint8_t subclassCode){
+
+    const char* MassStorageControllerSubclassName(uint8_t subclassCode){
         switch (subclassCode){
             case 0x00:
                 return "SCSI Bus Controller";
@@ -73,16 +73,9 @@ namespace PCI{
             case 0x07:
                 return "Serial Attached SCSI";
             case 0x08:
-                return "Non-Volatile Memory Controller / NVME";
+                return "Non-Volatile Memory Controller";
             case 0x80:
                 return "Other";
-        }
-        return to_hstring(subclassCode);
-    }
-    const char* GetSubClassName(uint8_t classCode, uint8_t subclassCode){
-        switch (classCode){
-            case 0x01:
-                return MassStorageContollerSubclassName(subclassCode);
         }
         return to_hstring(subclassCode);
     }
@@ -145,9 +138,25 @@ namespace PCI{
         return to_hstring(subclassCode);
     }
 
+    const char* GetSubclassName(uint8_t classCode, uint8_t subclassCode){
+        switch (classCode){
+            case 0x01:
+                return MassStorageControllerSubclassName(subclassCode);
+            case 0x03:
+                switch (subclassCode){
+                    case 0x00:
+                        return "VGA Compatible Controller";
+                }
+            case 0x06:
+                return BridgeDeviceSubclassName(subclassCode);
+            case 0x0C:
+                return SerialBusControllerSubclassName(subclassCode);
+        }
+        return to_hstring(subclassCode);
+    }
 
     const char* GetProgIFName(uint8_t classCode, uint8_t subclassCode, uint8_t progIF){
-        switch(classCode){
+        switch (classCode){
             case 0x01:
                 switch (subclassCode){
                     case 0x06:
@@ -187,7 +196,7 @@ namespace PCI{
                             case 0xFE:
                                 return "USB Device (Not a Host Controller)";
                         }
-                } 
+                }    
         }
         return to_hstring(progIF);
     }

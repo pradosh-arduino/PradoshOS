@@ -3,7 +3,6 @@
 #include "../cstr.h"
 #include "../mtask.h"
 #include "../interrupts/IDT.h"
-#include "../powerMgmt.h"
 #include "../scheduling/pit/pit.h"
 #include "../mtask.h"
 

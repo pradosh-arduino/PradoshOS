@@ -21,20 +21,47 @@ void TextBox(int CordY, int height, int CordX, int width, uint32_t colour){
 void setRect(uint32_t xPos, uint32_t yPos, uint32_t xLength, uint32_t yLength, uint32_t colour, int delay, const char* text){
   int LocalxL = xPos + xLength;
   int LocalyL = yPos + yLength;
-  PIT::Sleepd(delay);
+  int str = strlen(text) / 2;
   for(int x = xPos; x < LocalxL; x++){
     for(int y = yPos; y < LocalyL; y++){
       GlobalRenderer->PutPix(x, y, colour);
+      PIT::Sleepd(delay);
     }
   }
   Point OldPos = GlobalRenderer->CursorPosition;
-  int l = xLength / 2;
-  int k = yLength / 2;
+  //int l = LocalxL / 2;
+  //int k = LocalyL / 2;
   //int i = l - strlen(text) / 2;
-  GlobalRenderer->CursorPosition = {l, k};
-  GlobalRenderer->Print("");
+  GlobalRenderer->CursorPosition.Y = LocalyL - (yLength / 2);
+  GlobalRenderer->CursorPosition.X = LocalxL - (xLength - str / 2) + 16 * 8;
+  GlobalRenderer->Colour = 0x00292929;
+  GlobalRenderer->Print(text);
+  GlobalRenderer->Colour = 0x00ffffff;
   GlobalRenderer->CursorPosition = OldPos;
 }
+
+void TextBox(uint32_t xPos, uint32_t yPos, uint32_t xLength, uint32_t yLength, uint32_t colour, int delay, const char* text){
+  int LocalxL = xPos + xLength;
+  int LocalyL = yPos + yLength;
+  int str = strlen(text) / 2;
+  for(int x = xPos; x < LocalxL; x++){
+    for(int y = yPos; y < LocalyL; y++){
+      GlobalRenderer->PutPix(x, y, colour);
+      PIT::Sleepd(delay);
+    }
+  }
+  Point OldPos = GlobalRenderer->CursorPosition;
+  //int l = LocalxL / 2;
+  //int k = LocalyL / 2;
+  //int i = l - strlen(text) / 2;
+  GlobalRenderer->CursorPosition.Y = LocalyL - (yLength / 2);
+  GlobalRenderer->CursorPosition.X = LocalxL - (xLength - str / 2) + 16 * 8;
+  GlobalRenderer->Colour = 0x00292929;
+  GlobalRenderer->Print(text);
+  GlobalRenderer->Colour = 0x00ffffff;
+  GlobalRenderer->CursorPosition = OldPos;
+}
+
 
 void printFill(const char* str){
     int charLen = strlen(str);

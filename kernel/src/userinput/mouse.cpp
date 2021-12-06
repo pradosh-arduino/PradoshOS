@@ -149,14 +149,18 @@ void ProcessMousePacket(){
         if (MousePosition.Y < 0) MousePosition.Y = 0;
         if (MousePosition.Y > GlobalRenderer->TargetFramebuffer->Height-1) MousePosition.Y = GlobalRenderer->TargetFramebuffer->Height-1;
         
-        GlobalRenderer->ClearMouseCursor(MousePointer, MousePositionOld);
-        GlobalRenderer->DrawOverlayMouseCursor(MousePointer, MousePosition, 0xffffffff);
+        if (GlobalRenderer->GetPix(MousePosition.X, MousePosition.Y) == 16777215){
+            GlobalRenderer->ClearMouseCursor(MousePointer, MousePositionOld);
+            GlobalRenderer->DrawOverlayMouseCursor(MousePointer, MousePosition, 0x00000000);
+        } else {
+            GlobalRenderer->ClearMouseCursor(MousePointer, MousePositionOld);
+            GlobalRenderer->DrawOverlayMouseCursor(MousePointer, MousePosition, 0xffffffff);
+        }
 
         if (MousePacket[0] & PS2Leftbutton){//10
-             //event for if left button on mouse click
-            //GlobalRenderer->PutChar('■', MousePosition.X, MousePosition.Y);
-            //DrawRect(MousePositionOld.Y, MousePositionOld.X);
-            //PutRect(MousePosition.X, MousePosition.Y, 0x00f8df27);
+            if (MousePosition.X == 500 && MousePosition.Y == 500){
+                TextBox(MousePosition.X, MousePosition.Y, 400, 130, 0x00ffffff, 0, "Welcome to PradoshOS");
+            }
         }
         if (MousePacket[0] & PS2Middlebutton){
             

@@ -74,3 +74,27 @@ void PutTime(){
     //GlobalRenderer->CursorPosition = LastCurPos;
     //PutTime();
 }
+
+uint8_t rtc_get_year()
+{
+	outb(0x70, 0x09);
+	return inb(0x71);
+}
+
+uint8_t rtc_get_month()
+{
+	outb(0x70, 0x08);
+	return inb(0x71);
+}
+
+uint8_t rtc_get_day()
+{
+	outb(0x70, 0x07);
+	return inb(0x71);
+}
+
+uint8_t rtc_get_weekday()
+{
+	outb(0x70, 0x06);
+	return inb(0x71);
+}

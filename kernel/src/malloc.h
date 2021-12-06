@@ -9,11 +9,11 @@ struct block{
     bool free;
     void _CombineForward();
     void _CombineBackward();
-    block* next;
-    block* last;
+    
 };
 
 void* _malloc(size_t sz);
+int _Kmalloc(size_t sz);
 void _free(void* address);
 void* _memmove(void *dest, const void *src, size_t len);
 void bcopy(const void *src, void *dest, size_t len);

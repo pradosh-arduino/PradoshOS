@@ -3,7 +3,6 @@
 #include "../addons.h"
 #include "../scheduling/pit/pit.h"
 #include "../shell.h"
-#include "../powerMgmt.h"
 
     bool isLeftShiftPressed;
     bool isRightShiftPressed;
@@ -14,7 +13,7 @@
     bool EnterActivator;
     bool isEnterPressed = false;
     
-    bool isF3Pressed = false;
+    int isF3Pressed = 0;
     
     char string[1000];
     int i = 0;
@@ -24,36 +23,43 @@ void HandleKeyboard(uint8_t scancode){
     switch (scancode){
         case LeftShift:
             isLeftShiftPressed = true;
+            isF3Pressed = 0;
             return; 
         case LeftShift + 0x80:
             isLeftShiftPressed = false;
+            isF3Pressed = 0;
             return;
         case RightShift:
             isRightShiftPressed = true;
+            isF3Pressed = 0;
             return;
         case RightShift + 0x80:
             isRightShiftPressed = false;
+            isF3Pressed = 0;
             return;
         case Enter:
             GlobalRenderer->Next();
-            GlobalShell->HandleCommand(string);
+            isF3Pressed = 0;
+            //GlobalShell->HandleCommand(string);
 
-            // clear string
-            for(int in = 0; in < 1000; in++) {
-                string[in] = 0;
-            }
-
-            // reset index
-            i = 0;
+            //// clear string
+            //for(int in = 0; in < 1000; in++) {
+            //    string[in] = 0;
+            //}
+            //
+            //// reset index
+            //i = 0;
             return;
         case Spacebar:
             GlobalRenderer->PutChar(' ');
+            isF3Pressed = 0;
             return;
         case BackSpace:
            GlobalRenderer->ClearChar();
+           isF3Pressed = 0;
            return;
         case 0x04:
-           isF3Pressed = true;
+           isF3Pressed++;
            return;
 
         // remove from string
@@ -66,12 +72,6 @@ void HandleKeyboard(uint8_t scancode){
         GlobalRenderer->PutChar(ascii);
         string[i] = ascii;
         i++;
-    }
-
-    if(isF3Pressed == true){
-        //shutdown();
-    }else{
-        
     }
 
 }

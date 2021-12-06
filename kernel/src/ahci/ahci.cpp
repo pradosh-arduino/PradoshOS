@@ -3,9 +3,9 @@
 #include "../paging/PageTableManager.h"
 #include "../malloc.h"
 #include "../paging/PageFrameAllocator.h"
-#include "../mbr/mbr.h"
 
 namespace AHCI{
+
     #define HBA_PORT_DEV_PRESENT 0x3
     #define HBA_PORT_IPM_ACTIVE 0x1
     #define SATA_SIG_ATAPI 0xEB140101
@@ -18,18 +18,16 @@ namespace AHCI{
     #define HBA_PxCMD_ST 0x0001
     #define HBA_PxCMD_FR 0x4000
 
-    uint8_t* PortBuff;
-
     PortType CheckPortType(HBAPort* port){
         uint32_t sataStatus = port->sataStatus;
 
-        uint8_t interfacePowerManagement = (sataStatus >> 8) % 0b111;
+        uint8_t interfacePowerManagement = (sataStatus >> 8) & 0b111;
         uint8_t deviceDetection = sataStatus & 0b111;
 
-        if(deviceDetection != HBA_PORT_DEV_PRESENT) return PortType::None;
-        if(interfacePowerManagement != HBA_PORT_IPM_ACTIVE) return PortType::None;
+        if (deviceDetection != HBA_PORT_DEV_PRESENT) return PortType::None;
+        if (interfacePowerManagement != HBA_PORT_IPM_ACTIVE) return PortType::None;
 
-        switch(port->signature){
+        switch (port->signature){
             case SATA_SIG_ATAPI:
                 return PortType::SATAPI;
             case SATA_SIG_ATA:
@@ -42,6 +40,24 @@ namespace AHCI{
                 PortType::None;
         }
     }
+
+    void AHCIDriver::ProbePorts(){
+        uint32_t portsImplemented = ABAR->portsImplemented;
+        for (int i = 0; i < 32; i++){
+            if (portsImplemented & (1 << i)){
+                PortType portType = CheckPortType(&ABAR->ports[i]);
+
+                if (portType == PortType::SATA || portType == PortType::SATAPI){
+                    ports[portCount] = new Port();
+                    ports[portCount]->portType = portType;
+                    ports[portCount]->hbaPort = &ABAR->ports[i];
+                    ports[portCount]->portNumber = portCount;
+                    portCount++;
+                }
+            }
+        }
+    }
+
     void Port::Configure(){
         StopCMD();
 
@@ -89,15 +105,16 @@ namespace AHCI{
         hbaPort->cmdSts |= HBA_PxCMD_FRE;
         hbaPort->cmdSts |= HBA_PxCMD_ST;
     }
+
     bool Port::Read(uint64_t sector, uint32_t sectorCount, void* buffer){
         uint32_t sectorL = (uint32_t) sector;
         uint32_t sectorH = (uint32_t) (sector >> 32);
 
-        hbaPort->interruptStatus = (uint32_t)-1;
+        hbaPort->interruptStatus = (uint32_t)-1; // Clear pending interrupt bits
 
         HBACommandHeader* cmdHeader = (HBACommandHeader*)hbaPort->commandListBase;
-        cmdHeader->commandFISLength = sizeof(FIS_REG_H2D)/ sizeof(uint32_t);
-        cmdHeader->write = 0;
+        cmdHeader->commandFISLength = sizeof(FIS_REG_H2D)/ sizeof(uint32_t); //command FIS size;
+        cmdHeader->write = 0; //this is a read
         cmdHeader->prdtLength = 1;
 
         HBACommandTable* commandTable = (HBACommandTable*)(cmdHeader->commandTableBaseAddress);
@@ -105,13 +122,13 @@ namespace AHCI{
 
         commandTable->prdtEntry[0].dataBaseAddress = (uint32_t)(uint64_t)buffer;
         commandTable->prdtEntry[0].dataBaseAddressUpper = (uint32_t)((uint64_t)buffer >> 32);
-        commandTable->prdtEntry[0].byteCount = (sectorCount<<9)-1;
+        commandTable->prdtEntry[0].byteCount = (sectorCount<<9)-1; // 512 bytes per sector
         commandTable->prdtEntry[0].interruptOnCompletion = 1;
 
         FIS_REG_H2D* cmdFIS = (FIS_REG_H2D*)(&commandTable->commandFIS);
 
         cmdFIS->fisType = FIS_TYPE_REG_H2D;
-        cmdFIS->commandControl = 1;
+        cmdFIS->commandControl = 1; // command
         cmdFIS->command = ATA_CMD_READ_DMA_EX;
 
         cmdFIS->lba0 = (uint8_t)sectorL;
@@ -121,7 +138,7 @@ namespace AHCI{
         cmdFIS->lba4 = (uint8_t)(sectorH >> 8);
         cmdFIS->lba4 = (uint8_t)(sectorH >> 16);
 
-        cmdFIS->deviceRegister = 1<<6;
+        cmdFIS->deviceRegister = 1<<6; //LBA mode
 
         cmdFIS->countLow = sectorCount & 0xFF;
         cmdFIS->countHigh = (sectorCount >> 8) & 0xFF;
@@ -147,64 +164,32 @@ namespace AHCI{
         }
 
         return true;
+    }
 
-    }
-    void AHCIDriver::ProbePorts(){
-        uint32_t portsImplemented = ABAR->portsImplemented;
-        for(int i = 0; i < 32; i++){
-            if (portsImplemented & (1 << i)){
-                PortType portType = CheckPortType(&ABAR->ports[i]);
-                if(portType == PortType::SATA){
-                    GlobalRenderer->Print("SATA Drive detected! (hard disk drive) at port:");
-                    GlobalRenderer->Print(to_string((long int)i));
-                    GlobalRenderer->Next();
-                }else if(portType == PortType::SATAPI){
-                    GlobalRenderer->Print("SATAPI Drive detected! (Optical Drive) at port:");
-                    GlobalRenderer->Print(to_string((long int)i));
-                    GlobalRenderer->Next();
-                }else if(portType == PortType::PM){
-                    GlobalRenderer->Print("PM Drive detected! at port:");
-                    GlobalRenderer->Print(to_string((long int)i));
-                    GlobalRenderer->Next();
-                }else if(portType == PortType::SEMB){
-                    GlobalRenderer->Print("SEMB Drive detected! at port:");
-                    GlobalRenderer->Print(to_string((long int)i));
-                    GlobalRenderer->Next();
-                }else{
-                    GlobalRenderer->Print("Not Connected or Unknown drive! at port:");
-                    GlobalRenderer->Print(to_string((long int)i));
-                    GlobalRenderer->Next();
-                }
-                if(portType == PortType::SATA || portType == PortType::SATAPI){
-                    ports[portCount] = new Port();
-                    ports[portCount]->portType = portType;
-                    ports[portCount]->hbaPort = &ABAR->ports[i];
-                    ports[portCount]->portNumber = portCount;
-                    portCount++;
-                }
-            }
-        }
-    }
-    AHCIDriver::AHCIDriver(PCI::PCIDeviceHeader* pciBaseAdderess){
-        this->PCIBaseAdderess = pciBaseAdderess;
-        GlobalRenderer->Print("AHCI Driver intialized!");
+    AHCIDriver::AHCIDriver(PCI::PCIDeviceHeader* pciBaseAddress){
+        this->PCIBaseAddress = pciBaseAddress;
+        GlobalRenderer->Print("AHCI Driver instance initialized");
         GlobalRenderer->Next();
 
-        ABAR = (HBAMemory*)((PCI::PCIHeader0*)pciBaseAdderess)->BAR5;
+        ABAR = (HBAMemory*)((PCI::PCIHeader0*)pciBaseAddress)->BAR5;
 
         g_PageTableManager.MapMemory(ABAR, ABAR);
-
-        MBR partTable = {};
-
         ProbePorts();
+        
         for (int i = 0; i < portCount; i++){
             Port* port = ports[i];
 
             port->Configure();
-            memset((void*)port->buffer, 0, 0x1000);
-            port->Read(0, 4, (void*)port->buffer);
-        }
 
+            port->buffer = (uint8_t*)GlobalAllocator.RequestPage();
+            memset(port->buffer, 0, 0x1000);
+
+            port->Read(0, 4, port->buffer);
+            for (int t = 0; t < 1024; t++){
+                GlobalRenderer->PutChar(port->buffer[t]);
+            }
+            GlobalRenderer->Next();
+        }
     }
 
     AHCIDriver::~AHCIDriver(){

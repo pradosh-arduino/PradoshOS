@@ -29,9 +29,9 @@ CC = gcc
 ASMC = nasm
 LD = ld
 
-CFLAGS = -ffreestanding -fshort-wchar -mno-red-zone -fno-exceptions  --verbose
+CFLAGS = -ffreestanding -fshort-wchar -mno-red-zone -fno-exceptions
 ASMFLAGS =
-LDFLAGS = -T $(LDS) -static -Bsymbolic -nostdlib  --verbose
+LDFLAGS = -T $(LDS) -static -Bsymbolic -nostdlib
 
 SRCDIR := src
 OBJDIR := lib
@@ -81,7 +81,6 @@ link:
 	touch $(CHKDIR)/.obj-done
 	@ echo "\e[1;34mLINKING $^\e[0m"
 	$(LD) $(LDFLAGS) -o $(BUILDDIR)/kernel.elf $(OBJS)
-	readelf -a bin/kernel.elf > ReadELF.txt
 	touch $(CHKDIR)/.link-done
 
 setup:
@@ -107,8 +106,8 @@ print:
 	@ echo "\e[1;32m [DONE] PradoshOS compiled and builded Successfully! \e[0m"
 
 read:
-	hexdump -C bin/kernel.elf
-	readelf -a bin/kernel.elf
+	hexdump -C bin/kernel.elf > hexdump.txt
+	readelf -a bin/kernel.elf > ReadELF.txt
 
 version:
 	objcopy res/version.txt -O version.o
@@ -119,12 +118,11 @@ buildimg:
 	mformat -v PradoshOS -i $(BUILDDIR)/$(OSNAME).img -f 1440 ::
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/BOOT
-	mmd -i $(BUILDDIR)/$(OSNAME).img ::/StartupApps
-	mmd -i $(BUILDDIR)/$(OSNAME).img ::/StartupApps/b64
-	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BOOTEFI) ::/EFI/BOOT
+	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/pradx-boot
+	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BOOTEFI) ::/EFI/pradx-boot
+	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/bootx64.efi ::/EFI/BOOT
 	mcopy -i $(BUILDDIR)/$(OSNAME).img startup.nsh ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/kernel.elf ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(USRDIR)/userland.elf ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-light16.psf ::
-	mcopy -i $(BUILDDIR)/$(OSNAME).img img.tga ::
 	touch $(CHKDIR)/.img-done

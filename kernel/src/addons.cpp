@@ -54,3 +54,11 @@ int __strncmp( const char * s1, const char * s2, size_t n )
         return ( *(unsigned char *)s1 - *(unsigned char *)s2 );
     }
 }
+
+uint16_t *memsetw(uint16_t *dest, uint16_t val, size_t count){
+	uint16_t* dstPtr = (uint16_t *)dest;
+
+    for (; count != 0; count--) *dstPtr++ = val;
+	
+	return dest;
+}

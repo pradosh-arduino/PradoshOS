@@ -1,8 +1,14 @@
 #include "BasicRenderer.h"
 #include "addons.h"
 #include "scheduling/pit/pit.h"
+#include "malloc.h"
+
+#define VIDEO_MEMORY_ADDRESS 0x8000;
 
 BasicRenderer* GlobalRenderer;
+
+uint16_t *video_memory = (uint16_t *) VIDEO_MEMORY_ADDRESS;
+uint8_t *u8video_memory = (uint8_t *) VIDEO_MEMORY_ADDRESS;
 
 BasicRenderer::BasicRenderer(Framebuffer* targetFramebuffer, PSF1_FONT* psf1_Font)
 {
@@ -178,15 +184,24 @@ void BasicRenderer::ClearLine(int line){
     CursorPosition.Y = tempY;
     CursorPosition.X = tempX;
 }
-void BasicRenderer::Scroll(){
-    const char* lines;
-    int width = 1920;
-    Framebuffer* framebuffer;
-    for(int i = 1; i < CursorPosition.Y + 1; i++){
-        //PIT::Sleepd(0.2);
-        //__memmove((void*)CursorPosition.Y, (void*)CursorPosition.X, sizeof(CursorPosition));
-    }
-    ClearLine(CursorPosition.Y);
+void BasicRenderer::Scroll(int line){
+    //uint16_t blankCell = ' ';
+    //uint16_t offset = CursorPosition.Y - TargetFramebuffer->Width + 1;
+	//_memcpy(u8video_memory, u8video_memory + (offset * TargetFramebuffer->Height * 2), (TargetFramebuffer->Width - offset) * TargetFramebuffer->Height * 2);
+	//
+	//// Clear the last row
+	//memsetw(video_memory + ((TargetFramebuffer->Width - offset) * TargetFramebuffer->Height), blankCell, TargetFramebuffer->Height);
+	//CursorPosition.Y = TargetFramebuffer->Width - 1;
+
+     // Move up
+    void * start = (void*)TargetFramebuffer->Height + 1 * TargetFramebuffer->Width * line;
+    uint32_t size = CursorPosition.Y * TargetFramebuffer->Width * line;
+    void* tfbHeight = (void*)TargetFramebuffer->Height;
+
+    _memcpy((void*)TargetFramebuffer->Height, start, size);
+    // Delete
+    start = tfbHeight + size;
+    memsetw((uint16_t*)start, 0x00, TargetFramebuffer->Width);
     CursorPosition.Y--;
 }
 

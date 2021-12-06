@@ -40,12 +40,12 @@ bool Directory::CreateFile(const char* name) { return true; }
 bool Directory::CreateDirectory(const char* name) { return true; }
 
 
-FileSystem::FileSystem(AHCI::Port* port) {
+void FileSystem::FileSystemH(AHCI::Port* port) {
     this->port = port;
     this->FS_Root = NULL;
 }
 
-FileSystem::~FileSystem() {}
+//FileSystem::~FileSystem() {}
 
 void FileSystem::Read(size_t sector, size_t amount, void* dataBuffer) { return; }
 

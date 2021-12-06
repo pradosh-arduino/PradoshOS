@@ -29,6 +29,6 @@ void create_file_from_ramdisk();
 int length(const char* abc);
 int equal(const char* a, const char* b);
 void set(int *a, int *b);
-char *malloc(int len);
+char* Kmalloc(int len);
 void ls();
 extern int f_index;

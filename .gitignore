@@ -2,3 +2,4 @@
 kernel/src/.vs/slnx.sqlite
 *.efi
 gnu-efi/x86_64/bootloader/main.efi
+*.json

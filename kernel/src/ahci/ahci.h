@@ -1,24 +1,23 @@
 #pragma once
 #include <stdint.h>
 #include "../pci.h"
-//#include "../fs.h"
 
-namespace AHCI{
+namespace AHCI {
+
     #define ATA_DEV_BUSY 0x80
     #define ATA_DEV_DRQ 0x08
     #define ATA_CMD_READ_DMA_EX 0x25
 
     #define HBA_PxIS_TFES (1 << 30)
 
-    extern uint8_t* PortBuff;
-
-    enum PortType{
+    enum PortType {
         None = 0,
         SATA = 1,
         SEMB = 2,
         PM = 3,
         SATAPI = 4,
     };
+
     enum FIS_TYPE{
         FIS_TYPE_REG_H2D = 0x27,
         FIS_TYPE_REG_D2H = 0x34,
@@ -29,6 +28,7 @@ namespace AHCI{
         FIS_TYPE_PIO_SETUP = 0x5F,
         FIS_TYPE_DEV_BITS = 0xA1,
     };
+
     struct HBAPort{
         uint32_t commandListBase;
         uint32_t commandListBaseUpper;
@@ -67,7 +67,8 @@ namespace AHCI{
         uint8_t vendor[0x60];
         HBAPort ports[1];
     };
-     struct HBACommandHeader {
+
+    struct HBACommandHeader {
         uint8_t commandFISLength:5;
         uint8_t atapi:1;
         uint8_t write:1;
@@ -85,7 +86,28 @@ namespace AHCI{
         uint32_t commandTableBaseAddressUpper;
         uint32_t rsv1[4];
     };
-    struct FIS_REG_H2D{
+
+    struct HBAPRDTEntry{
+        uint32_t dataBaseAddress;
+        uint32_t dataBaseAddressUpper;
+        uint32_t rsv0;
+
+        uint32_t byteCount:22;
+        uint32_t rsv1:9;
+        uint32_t interruptOnCompletion:1;
+    };
+
+    struct HBACommandTable{
+        uint8_t commandFIS[64];
+
+        uint8_t atapiCommand[16];
+
+        uint8_t rsv[48];
+
+        HBAPRDTEntry prdtEntry[];
+    };
+
+    struct FIS_REG_H2D {
         uint8_t fisType;
 
         uint8_t portMultiplier:4;
@@ -112,25 +134,7 @@ namespace AHCI{
 
         uint8_t rsv1[4];
     };
-    struct HBAPRDTEntry{
-        uint32_t dataBaseAddress;
-        uint32_t dataBaseAddressUpper;
-        uint32_t rsv0;
 
-        uint32_t byteCount:22;
-        uint32_t rsv1:9;
-        uint32_t interruptOnCompletion:1;
-    };
-    struct HBACommandTable{
-        uint8_t commandFIS[64];
-
-        uint8_t atapiCommand[16];
-
-        uint8_t rsv[48];
-
-        HBAPRDTEntry prdtEntry[];
-
-    };
     class Port {
         public:
             HBAPort* hbaPort;
@@ -141,17 +145,17 @@ namespace AHCI{
             void StartCMD();
             void StopCMD();
             bool Read(uint64_t sector, uint32_t sectorCount, void* buffer);
-            PortType CheckPortType(HBAPort* port);
     };
+
     class AHCIDriver{
         public:
-        PCI::PCIDeviceHeader* PCIBaseAdderess;
-        HBAMemory* ABAR;
-        AHCIDriver(PCI::PCIDeviceHeader* pciBaseAdderess);
+        AHCIDriver(PCI::PCIDeviceHeader* pciBaseAddress);
         ~AHCIDriver();
+        PCI::PCIDeviceHeader* PCIBaseAddress;
+        HBAMemory* ABAR;
         void ProbePorts();
         Port* ports[32];
+        Port* FS_PORT;
         uint8_t portCount;
-
     };
 }
