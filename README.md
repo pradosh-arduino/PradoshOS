@@ -129,7 +129,7 @@
  
  Peko#5633 ㅤㅤㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
  
- GAMINGNOOB#3589 ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
+ GAMINGNOOB#3589  ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
 
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
