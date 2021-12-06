@@ -1,6 +1,6 @@
 ### Welcome To PradoshOS Github!
 
-![Capture](https://user-images.githubusercontent.com/69463173/144822735-93c19a6c-2845-437d-83f5-064dffc5d750.PNG)
+![Untitled-1](https://user-images.githubusercontent.com/69463173/144822865-e740934e-7358-4b68-9e23-b0591941c65d.png)
 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=pradosh-arduino&show_icons=true)
 
@@ -69,7 +69,8 @@
  
 ## Pictures
  Main Screen:
- ![os](https://user-images.githubusercontent.com/69463173/144696429-d5a671d5-1cab-47ab-8f84-3a5b181c1ef3.png)
+ ![Capture](https://user-images.githubusercontent.com/69463173/144822958-1ba50442-ef48-4bd0-a21c-c9d027fccc9b.PNG)
+
 
  
  Error Screen:
