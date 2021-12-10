@@ -28,6 +28,7 @@ class BasicRenderer{
     void ClearLine(int line);
     void Scroll(int line);
     void Seperator();
+    void LoadIcon(uint8_t* icon, Point position, uint32_t colour);
     bool MouseDrawn;
 };
 extern BasicRenderer* GlobalRenderer;

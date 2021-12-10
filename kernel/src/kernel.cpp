@@ -14,7 +14,7 @@
 #include "userinput/keyboard.h"
 //userinput
 //interupts
-#include "fat_fs/fat_init.h"
+
 //interupts
 
 //user
@@ -270,9 +270,10 @@ extern "C" void _start(BootInfo* bootInfo){
 
     lock_scheduler();
     schedule();
+    GlobalRenderer->Next();
+    schedule();
     unlock_scheduler();
-    terminate_task(5);
-    cleanup_terminated_task(task2);
+    terminate_task();
     TextBox(500, 500, 400, 130, 0x00ffffff, 0, "Welcome to PradoshOS");
     Point LasDatePos = GlobalRenderer->CursorPosition;
     GlobalRenderer->CursorPosition = {ScreenWidth - 0x88, 16};
@@ -287,7 +288,7 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->CursorPosition = LasDatePos;
 
     GlobalRenderer->Next();
-
+    
     for(;;){
       asm("hlt"); // imp cpu eff
       ProcessMousePacket();

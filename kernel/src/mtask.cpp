@@ -35,10 +35,7 @@ void schedule(void) {
     if(first_ready_to_run_task != NULL) {
         task* processTask = first_ready_to_run_task;
     }
-    GlobalRenderer->Print(to_string((float)task2->id));
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
-    GlobalRenderer->ClearChar();
+    GlobalRenderer->Print(to_string((long int)task2->id));
     GlobalRenderer->Print(":");
     GlobalRenderer->Print("Started!");
 }
@@ -81,7 +78,7 @@ const char* get_error_code(int state){
     }else if(state == 4){
         return "Shutting down services";
     }else if(state == 5){
-        return "Terminated";
+        return "Terminated. PID:", to_string((long int)task2->id);;
     }else if(state == 6){
         return "Paused";
     }else{
@@ -90,15 +87,16 @@ const char* get_error_code(int state){
 }
 
  
-void terminate_task(int reason) {
+void terminate_task() {
     lock_scheduler();
     GlobalRenderer->Next();
     current_task_TCB->next = terminated_task_list;
     terminated_task_list = current_task_TCB;
     unlock_scheduler();
 
-    block_task(reason); 
+    block_task(5); 
     unblock_task((task*)cleaner_task);
+    cleaner_task();
 }
 
 void cleaner_task(void) { 

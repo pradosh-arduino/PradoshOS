@@ -6,7 +6,7 @@ set KERNELDIR=%0/../
 set BUILDDIR=%BUILDDIR:"=%
 set OVMFDIR=%OVMFDIR:"=%
 set OSNAME=CustomOS
-clear
+cls
 type %KERNELDIR%/cpu-print.txt
 set /p processor=Enter Processor to boot:
 set /p mem=Enter memory:

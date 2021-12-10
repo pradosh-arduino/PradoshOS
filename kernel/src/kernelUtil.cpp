@@ -6,18 +6,13 @@
 #include "interrupts/interrupts.h"
 #include "fade.h"
 #include "acpiBoot.c"
-#include "fat_fs/filesystems/fat.h"
-#include "fat_fs/filesystems/fs.h"
-#include "fat_fs/fat_init.h"
 #include "fs.h"
-#include "imgBitmap.h"
 #include "pic.h"
 #include "ethernet/RTL8139.h"
+#include "mtask.h"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
-
-using namespace AHCI;
 
 void PrepareMemory(BootInfo* bootInfo){
     uint64_t mMapEntries = bootInfo->mMapSize / bootInfo->mMapDescSize;
@@ -96,6 +91,8 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
     PrepareACPI(bootInfo);
     AcpiInit();
 
+    cleaner_task();
+
     //pic_init();
 
     //AHCIDriver* ahciM;
@@ -103,14 +100,21 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     rtl8139->Init();
 
-    if(does_file_exists("log.txt")){
+    pic_init();
 
-    }else {
-        create_file("log.txt", "creation of log");
-    }
-
-    ls();
-
+    GlobalRenderer->Println("Directory of '/' :");
+    File* mouse;
+    GlobalRenderer->PutChar(' ');
+    vFileSystem->NewFile("mmouse", "pickle", "32e2qeqeqeqweq", mouse);
+    vFileSystem->list();
+    File* keyboard;
+    GlobalRenderer->PutChar(' ');
+    vFileSystem->NewFile("kkeyboard", "pickle", "test3333", keyboard);
+    vFileSystem->list();
+    GlobalRenderer->PutChar(' ');
+    File* hardwareAL;
+    vFileSystem->NewFile("hhardwareAL", "out", "test1", hardwareAL);
+    vFileSystem->list();
 
     outb(PIC1_DATA, 0b11111000);
     outb(PIC2_DATA, 0b11101111);

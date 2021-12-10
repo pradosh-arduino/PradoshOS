@@ -210,3 +210,7 @@ void BasicRenderer::Seperator(){
         PutPix(i, CursorPosition.Y, 0x00ffffff);
     }
 }
+
+void BasicRenderer::LoadIcon(uint8_t* icon, Point position, uint32_t colour){
+    DrawOverlayMouseCursor(icon, position, colour);
+}
