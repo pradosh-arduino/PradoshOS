@@ -174,5 +174,3 @@
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
  
  Discord: **helloImPR#6776**
-
-Learn Everything in my Website: https://pradosh-arduino.github.io/PradoshOS/
