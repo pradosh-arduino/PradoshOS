@@ -8,6 +8,29 @@
 
 <a href="https://www.buymeacoffee.com/pradoshArduino"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=pradoshArduino&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"></a>
 
+# Index
+
++ [Main heading](https://github.com/pradosh-arduino/PradoshOS#welcome-to-pradoshos-github)
++ [Setup](https://github.com/pradosh-arduino/PradoshOS#setup)
+    + [Step 1](https://github.com/pradosh-arduino/PradoshOS#step-1-install-wsl)
+    + [Step 2](https://github.com/pradosh-arduino/PradoshOS#step-2-update-wsllinux-environment-optional-but-recommended)
+    + [Step 3](https://github.com/pradosh-arduino/PradoshOS#step-3-get-some-build-tools)
+    + [Step 4](https://github.com/pradosh-arduino/PradoshOS#step-4-get-qemu-emulator)
++ [Compilation of Bootloader](https://github.com/pradosh-arduino/PradoshOS#compilation-of-bootloader)
++ [Compilation of Kernel](https://github.com/pradosh-arduino/PradoshOS#compilation-of-kernel)
++ [Compilation of Userland](https://github.com/pradosh-arduino/PradoshOS#compilation-of-userland)
++ [Setup of compile-all.sh](https://github.com/pradosh-arduino/PradoshOS#setup-of-compile-allsh)
++ [Steps](https://github.com/pradosh-arduino/PradoshOS#steps)
++ [Running the OS](https://github.com/pradosh-arduino/PradoshOS#running-the-os)
++ [Pictures](https://github.com/pradosh-arduino/PradoshOS#pictures)
++ [Font Package](https://github.com/pradosh-arduino/PradoshOS#font-package)
+    + [Step 1](https://github.com/pradosh-arduino/PradoshOS#step-1-get-a-font)
+    + [Step 2](https://github.com/pradosh-arduino/PradoshOS#step-2-changing-the-font)
++ [Articles & Resources](https://github.com/pradosh-arduino/PradoshOS#articles--resources)
++ [Problems](https://github.com/pradosh-arduino/PradoshOS#problems)
++ [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
++ [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
+
 ## Setup
 
  if your building any OS for first time, you have a lot to install
