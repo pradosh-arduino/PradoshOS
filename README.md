@@ -142,6 +142,12 @@
    https://www.wfbsoftware.de/realtek-rtl8139-network-interface-card/
    
    more at: https://wiki.osdev.org
+   
+## TODO
+    + Implement TSAD in Ethernet
+    + Complete types.h
+    + Fill the structs in ACPI
+    + Complete Folder in FS
       
 ## Problems
  **Q: Qemu stuck while booting (Tiano Core)**
