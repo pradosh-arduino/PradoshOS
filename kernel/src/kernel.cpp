@@ -288,6 +288,8 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->CursorPosition = LasDatePos;
 
     GlobalRenderer->Next();
+
+    asm("wrmsr");
     
     for(;;){
       asm("hlt"); // imp cpu eff
