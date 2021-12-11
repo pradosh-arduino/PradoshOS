@@ -27,6 +27,7 @@
     + [Step 1](https://github.com/pradosh-arduino/PradoshOS#step-1-get-a-font)
     + [Step 2](https://github.com/pradosh-arduino/PradoshOS#step-2-changing-the-font)
 + [Articles & Resources](https://github.com/pradosh-arduino/PradoshOS#articles--resources)
++ [TODO](https://github.com/pradosh-arduino/PradoshOS#todo)
 + [Problems](https://github.com/pradosh-arduino/PradoshOS#problems)
 + [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
 + [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
@@ -142,6 +143,12 @@
    https://www.wfbsoftware.de/realtek-rtl8139-network-interface-card/
    
    more at: https://wiki.osdev.org
+   
+## TODO
+   + Implement TSAD in Ethernet
+   + Complete types.h
+   + Fill the structs in ACPI
+   + Complete Folder in FS
       
 ## Problems
  **Q: Qemu stuck while booting (Tiano Core)**
@@ -160,10 +167,10 @@
  Peko#5633 ㅤㅤㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
  
  GAMINGNOOB#3589ㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
+ 
+ 🎅Konect#0496ㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
 
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
  
  Discord: **helloImPR#6776**
-
-Learn Everything in my Website: https://pradosh-arduino.github.io/PradoshOS/
