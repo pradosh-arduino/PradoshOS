@@ -87,6 +87,7 @@ setup:
 	@mkdir $(BUILDDIR)
 	@mkdir $(SRCDIR)
 	@mkdir $(OBJDIR)
+	@mkdir $(CHKDIR)
 	touch $(CHKDIR)/.setup-done
 
 clean:
