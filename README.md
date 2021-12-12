@@ -98,7 +98,7 @@
 
  
  Error Screen:
- ![error_scr](https://user-images.githubusercontent.com/69463173/142187283-0f9dbdd4-7bd0-4471-880c-0242dca4db6c.PNG)
+ ![newError](https://user-images.githubusercontent.com/69463173/145708579-c82beeb0-b04c-48eb-8073-2fe08262b041.png)
  
  Bootloader:
  
