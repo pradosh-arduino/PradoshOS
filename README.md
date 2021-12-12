@@ -18,7 +18,6 @@
     + [Step 4](https://github.com/pradosh-arduino/PradoshOS#step-4-get-qemu-emulator)
 + [Compilation of Bootloader](https://github.com/pradosh-arduino/PradoshOS#compilation-of-bootloader)
 + [Compilation of Kernel](https://github.com/pradosh-arduino/PradoshOS#compilation-of-kernel)
-+ [Compilation of Userland](https://github.com/pradosh-arduino/PradoshOS#compilation-of-userland)
 + [Setup of compile-all.sh](https://github.com/pradosh-arduino/PradoshOS#setup-of-compile-allsh)
 + [Steps](https://github.com/pradosh-arduino/PradoshOS#steps)
 + [Running the OS](https://github.com/pradosh-arduino/PradoshOS#running-the-os)
@@ -72,10 +71,7 @@
  then type `make all` to compile the kernel in to object file then it will link the objects into a bootloader
  understandable kernel executable (.elf) and takes the startup.nsh (a small script that calls bootloader), zap-light16.psf (font file), kernel.elf (sys kernel), main.efi 
  (bootloader) and makes these files into a bootable Floppy Disk Image
- 
-## Compilation of Userland
- go into your kernel dir then type this command `cd userland` then type `make all`
- 
+  
 ## Setup of compile-all.sh
  if you get the error `permission denied` no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
  
