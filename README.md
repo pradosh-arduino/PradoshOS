@@ -153,16 +153,25 @@
    + Release Canditate
    + Main Release
       
-## Problems
+## Problems & Q and A
+ *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
+
+ *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
+ 
  **Q: Qemu stuck while booting (Tiano Core)**
  
  A: That means UEFI binaries had corrupted which is a normal thing, goto
     https://github.com/pradosh-arduino/UEFI-Firmware and download the files
     then paste it in OVMFbin
     
- *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
-
- *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
+ **Q: Will there be support for any other CPU Architectures than x86_64(64 bit)?**
+ 
+ A: No, only x86_64(64 bit) maybe I will make for 32 bit but 99% I'm not gonna do it
+ 
+ **Q: When Will the PradoshOS will get released?**
+ 
+ A: Ok I Set the Fixed Date I started my OS on March 31 2021 so release date is March 31 2022
+    
  
 ## Credits
  There were some awesome people who helped me in my OS Dev journey they are
