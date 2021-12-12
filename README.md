@@ -82,7 +82,7 @@
  
 ## Running the OS
 
- Now the OS cannot run in VirtualBox or VMware, it only run on qemu and real hardware
+ Now the OS CAN run in VirtualBox or VMware
  so here are the steps to run in qemu
  if your in linux you need to run `make run` (implemented make run for linux users)
  if your in Windows run `run.bat`
