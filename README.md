@@ -147,6 +147,15 @@
    + Complete types.h
    + Fill the structs in ACPI
    + Complete Folder in FS
+
+## Build Structure
+   + Dev Build
+   + vbox-bootable
+   + Alpha
+   + Beta
+   + Pre-release
+   + Release Canditate
+   + Main Release
       
 ## Problems
  **Q: Qemu stuck while booting (Tiano Core)**
