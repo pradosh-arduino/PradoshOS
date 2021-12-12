@@ -77,7 +77,6 @@
  
 ## Steps
  1. build the bootloader
- 2. build the userland
  3. build the kernel
  4. build the bootable image (.img)
  
