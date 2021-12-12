@@ -7,6 +7,7 @@ class File{
     const char* name;
     const char* extension;
     const char* contents;
+    const char* path;
     long int size;
     int index;
     uint8_t* icon;
@@ -21,11 +22,22 @@ class Directory{
     int TotalFolder;
     bool read;
     bool write;
+
+    File* File1;
+    File* File2;
+    File* File3;
+    File* File4;
+    File* File5;
+};
+
+class DirBackSlash{
+    public:
+    Directory* pradx_sys;
 };
 
 class VFS{
     public:
-    void NewFile(const char* Fname, const char* Fextension, const char* Fcontents, File* NewFile);
+    void NewFile(const char* Fname, const char* Fextension, const char* Fcontents, File* NewFile, const char* Fpath);
     void DeleteFileOnSelected(const char* Fname);
     bool isFileExist(const char* Fname);
     const char* GetContents(File* File);

@@ -29,6 +29,7 @@ class BasicRenderer{
     void Scroll(int line);
     void Seperator();
     void LoadIcon(uint8_t* icon, Point position, uint32_t colour);
+    void NextLastX();
     bool MouseDrawn;
 };
 extern BasicRenderer* GlobalRenderer;

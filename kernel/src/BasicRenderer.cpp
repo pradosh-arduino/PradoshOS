@@ -125,6 +125,9 @@ void BasicRenderer::Next(){
     CursorPosition.X = 0;
     CursorPosition.Y += 16;
 }
+void BasicRenderer::NextLastX(){
+    CursorPosition.Y += 16;
+}
 
 void BasicRenderer::Print(const char* str)
 {

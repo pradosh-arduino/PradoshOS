@@ -5,6 +5,7 @@
 #include "../interrupts/IDT.h"
 #include "../scheduling/pit/pit.h"
 #include "../mtask.h"
+#include "regError.h"
 
 void Panic(const char* msg, const char* location, const char* when, uint64_t offset, uint8_t type_attr, uint16_t selector){
     GlobalRenderer->ClearColour = 0x00eb3b3b;
@@ -18,7 +19,7 @@ void Panic(const char* msg, const char* location, const char* when, uint64_t off
     GlobalRenderer->Next();
     GlobalRenderer->Print("An error has been occured! You need to restart your computer, Hold down Power button for several seconds or press the restart button if the error occour multiple times please contact: pradoshnathan@gmail.com");
     GlobalRenderer->Next();
-    GlobalRenderer->Print("Error code:");
+    GlobalRenderer->Print("Offset:");
     GlobalRenderer->Next();
     GlobalRenderer->Print("0x");
     GlobalRenderer->Print(to_hstring((uint32_t)offset));
@@ -47,15 +48,49 @@ void Panic(const char* msg, const char* location, const char* when, uint64_t off
     GlobalRenderer->Print(msg);
     GlobalRenderer->Next();
     GlobalRenderer->Next();
-    //GlobalRenderer->Print("Current Process(s): ");
-    GlobalRenderer->Print("Multitasking:  true");
+    Point Reg64Pos = GlobalRenderer->CursorPosition;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RAX)));
     GlobalRenderer->Next();
-    GlobalRenderer->Print("AHCI:          true");
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RBX)));
     GlobalRenderer->Next();
-    GlobalRenderer->Print("ACPI:          true");
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RCX)));
     GlobalRenderer->Next();
-    GlobalRenderer->Print("PCI:           true");
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RDX)));
     GlobalRenderer->Next();
-    GlobalRenderer->Print("Verbose Mode:  false");
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RSP)));
     GlobalRenderer->Next();
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RBP)));
+    GlobalRenderer->Next();
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister64(__REG__RIP)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->CursorPosition.Y = Reg64Pos.Y;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__EAX)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__EBX)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__ECX)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__EDX)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__ESP)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__EBP)));
+    GlobalRenderer->Next();
+    GlobalRenderer->CursorPosition.X = Reg64Pos.X + 20 * 8;
+    GlobalRenderer->Print(to_hstring((uint32_t)GetRegister32(__REG__EIP)));
+    GlobalRenderer->Next();
+    GlobalRenderer->Next();
+    block_task(7);
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("Beginning of Task Cleanup");
+    GlobalRenderer->Next();
+    cleanup_terminated_task(task2);
+    kernel_idle_task();
+
 }

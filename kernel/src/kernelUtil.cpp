@@ -10,7 +10,6 @@
 #include "pic.h"
 #include "ethernet/RTL8139.h"
 #include "mtask.h"
-#include "userland/userland.c"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
@@ -46,8 +45,6 @@ void PrepareMemory(BootInfo* bootInfo){
 
     kernelInfo.pageTableManager = &g_PageTableManager;
 }
-
-extern void to_userspace(void* a, void* b){}
 
 void PrepareACPI(BootInfo* bootInfo){
     ACPI::SDTHeader* xsdt = (ACPI::SDTHeader*)(bootInfo->rsdp->XSDTAddress);
@@ -100,9 +97,7 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     //AHCIDriver* ahciM;
     //fs_init(ahciM);
-
-    to_userspace((void*)user_function, (void*)&user_stack[1023]);
-
+    
     rtl8139->Init();
 
     pic_init();
@@ -110,15 +105,15 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
     GlobalRenderer->Println("Directory of '/' :");
     File* mouse;
     GlobalRenderer->PutChar(' ');
-    vFileSystem->NewFile("mouse", "pickle", "32e2qeqeqeqweq", mouse);
+    vFileSystem->NewFile("mouse", "pickle", "32e2qeqeqeqweq", mouse, "/");
     vFileSystem->list();
     File* keyboard;
     GlobalRenderer->PutChar(' ');
-    vFileSystem->NewFile("keyboard", "pickle", "test3333", keyboard);
+    vFileSystem->NewFile("keyboard", "pickle", "test3333", keyboard, "/");
     vFileSystem->list();
     GlobalRenderer->PutChar(' ');
     File* hardwareAL;
-    vFileSystem->NewFile("hardwareAL", "out", "test1", hardwareAL);
+    vFileSystem->NewFile("hardwareAL", "out", "test1", hardwareAL, "/");
     vFileSystem->list();
 
     outb(PIC1_DATA, 0b11111000);

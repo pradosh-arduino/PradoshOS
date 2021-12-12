@@ -45,12 +45,23 @@ uint8_t idk[] = {
   0x82, 0x82, 0xaa, 0xaa, 0x82, 0x82, 0xfe, 0xfe, 0x28, 0x28, 0x28, 0x28, 0xff, 0xff, 0xff, 0xff
 };
 
-void VFS::NewFile(const char* Fname, const char* Fextension, const char* Fcontents, File* NewFile){
+uint8_t Folder1[] = {
+  0x00, 0x00, 0x00, 0x00, 0x3f, 0xc0, 0x20, 0x40, 0x20, 0x7c, 0x20, 0x04, 0x20, 0x04, 0x20, 0x04, 
+  0x20, 0x04, 0x20, 0x04, 0x20, 0x04, 0x20, 0x04, 0x3f, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+uint8_t Folder2[] = {
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x7c, 0x00, 0x04, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+void VFS::NewFile(const char* Fname, const char* Fextension, const char* Fcontents, File* NewFile, const char* Fpath){
   if(!isFileExist(Fname)){
     NewFile->name = Fname;
     NewFile->extension = Fextension;
     NewFile->contents = Fcontents;
     NewFile->size = strlen(Fcontents);
+    NewFile->path = Fpath;
     NewFile->index = totalFiles + 1;
     SelectedFile = NewFile;
     totalFiles++;
@@ -60,6 +71,20 @@ void VFS::NewFile(const char* Fname, const char* Fextension, const char* Fconten
     GlobalRenderer->Next();
   }
 }
+/*
+void VFS::NewFolder(const char* Dname, Directory* NewFolder, const char* Dpath, bool Dread, bool Dwrite){
+  if(!isFileExist(Fname)){
+    NewFolder->name = Fname;
+    NewFolder->path = Fpath;
+    NewFolder->read = Dread;
+    NewFolder->write = Dwrite;
+    SelectedDir = NewFile;
+  }else{
+    GlobalRenderer->Print("A Folder already Exist with the name:");
+    GlobalRenderer->Print(Fname);
+    GlobalRenderer->Next();
+  }
+}*/
 
 void VFS::DeleteFileOnSelected(const char* Fname){
   if(isFileExist(Fname)){
@@ -109,17 +134,24 @@ void VFS::list(){
   GlobalRenderer->Next();
 }
 
-void VFS::MakeDir(const char* Dname, const char* path, bool Dread, bool Dwrite){
-  Directory* newDir;
-  newDir->name = Dname;
-  if(path == "$root"){
-    newDir->path = "/";
+/*void VFS::listFolder(){
+  if(SelectedDir->read == true){
+    GlobalRenderer->LoadIcon(Folder1, GlobalRenderer->CursorPosition, 0x00ffffff);
+    GlobalRenderer->LoadIcon(Folder2, GlobalRenderer->CursorPosition, 0x009e9e9e);
+    GlobalRenderer->PutChar(' ');
+    GlobalRenderer->PutChar(' ');
+    GlobalRenderer->Print(SelectedDir->name);
+    GlobalRenderer->PutChar(' ');
+    GlobalRenderer->Print(SelectedFile->path);
+    GlobalRenderer->Next();
   }else{
-    newDir->path = path;
+
   }
-  newDir->read = Dread;
-  newDir->write = Dwrite;
-}
+}*/
+
+/*void NewFileInDir(Directory* NewFolder, const char* name, const char* extension, const char* contents){
+  
+}*/
 
 void VFS::renameOnSelected(const char* newName){
   SelectedFile->name = newName;

@@ -23,6 +23,10 @@ __attribute__((interrupt)) void DivideByZero_Handler(interrupt_frame* frame);
 __attribute__((interrupt)) void InvalidOpCode_Handler(interrupt_frame* frame);
 __attribute__((interrupt)) void StackSegmentFault_Handler(interrupt_frame* frame);
 __attribute__((interrupt)) void Debug_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void Device_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void BoundRange_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void SegmentNotPreasent_Handler(interrupt_frame* frame);
+__attribute__((interrupt)) void Overflow_Handler(interrupt_frame* frame);
 
 void RemapPIC();
 void PIC_EndMaster();

@@ -30,6 +30,11 @@ struct BootInfo {
 extern uint64_t _KernelStart;
 extern uint64_t _KernelEnd;
 
+extern "C" void _enter_userspace(void* a);
+extern "C" void EnableSCE();
+extern "C" void LoadTSS();
+extern "C" void syscall_entry();
+
 struct KernelInfo {
     PageTableManager* pageTableManager;
 };

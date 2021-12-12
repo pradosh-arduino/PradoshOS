@@ -16,7 +16,10 @@
 //interupts
 
 //interupts
-
+#include "userland/userspace.c"
+#include "userland/tss.h"
+#include "userland/usergdt.h"
+#include "userland/usergdt.c"
 //user
 #include "GUI.h"
 //efimemory
@@ -289,8 +292,12 @@ extern "C" void _start(BootInfo* bootInfo){
 
     GlobalRenderer->Next();
 
-    asm("wrmsr");
-    
+    GDT_UserSpace* gdt_userland;
+    EnableSCE();
+    LoadTSS();
+    _createUserSpaceGdt(gdt_userland);
+    _enter_userspace((void*)userFunction);
+        
     for(;;){
       asm("hlt"); // imp cpu eff
       ProcessMousePacket();

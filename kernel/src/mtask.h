@@ -20,6 +20,9 @@ class Multiprocessing{
 extern task* task2;
 extern Multiprocessing* mp;
 
+extern int ret1;
+extern int ret2;
+
 void lock_scheduler(void);
 void unlock_scheduler(void);
 void schedule(void);
@@ -30,3 +33,4 @@ void cleaner_task(void);
 void terminate_task();
 const char* get_error_code(int state);
 void kernel_idle_task(void);
+void LastTwoDigit(long long int num);

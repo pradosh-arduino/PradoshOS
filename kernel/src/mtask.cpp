@@ -11,6 +11,9 @@ task* terminated_task_list = NULL;
 task* task2;
 Multiprocessing* mp;
 
+int ret1;
+int ret2;
+
 #define KERNEL_STACK_SIZE 0x1000
 
 void lock_scheduler(void) {
@@ -35,7 +38,9 @@ void schedule(void) {
     if(first_ready_to_run_task != NULL) {
         task* processTask = first_ready_to_run_task;
     }
-    GlobalRenderer->Print(to_string((long int)task2->id));
+    LastTwoDigit(task2->id);
+    GlobalRenderer->Print(to_string((long int)ret2));
+    GlobalRenderer->Print(to_string((long int)ret1));
     GlobalRenderer->Print(":");
     GlobalRenderer->Print("Started!");
 }
@@ -81,6 +86,8 @@ const char* get_error_code(int state){
         return "Terminated. PID:", to_string((long int)task2->id);;
     }else if(state == 6){
         return "Paused";
+    }else if(state == 7){
+        return "Terminated Due to System error.";
     }else{
         return 0;
     }
@@ -113,4 +120,26 @@ void cleaner_task(void) {
 void cleanup_terminated_task(task* task2) {
     task2->kernel_stack_top - KERNEL_STACK_SIZE;
     task2 = (task*)0;
+}
+
+void LastTwoDigit(long long int num)
+{
+    // Get the last digit from the number
+    int one = num % 10;
+ 
+    // Remove last digit from number
+    num /= 10;
+ 
+    // Get the last digit from
+    // the number(last second of num)
+    int tens = num % 10;
+ 
+    // Take last digit to ten's position
+    // i.e. last second digit
+    tens *= 10;
+ 
+    // Add the value of ones and tens to
+    // make it complete 2 digit number
+    ret2 = tens;
+    ret1 = one;
 }

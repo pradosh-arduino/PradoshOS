@@ -32,7 +32,9 @@ void PrepareInterrupts(){
     SetIDTGate((void*)InvalidOpCode_Handler, 0x6, IDT_TA_InterruptGate, 0x08);
     SetIDTGate((void*)StackSegmentFault_Handler, 0xC, IDT_TA_InterruptGate, 0x08);
     SetIDTGate((void*)Debug_Handler, 0x1, IDT_TA_TrapGate, 0x08);
-
+    SetIDTGate((void*)Overflow_Handler, 0x4, IDT_TA_TrapGate, 0x08);
+    SetIDTGate((void*)Device_Handler, 0x7, IDT_TA_InterruptGate, 0x08);
+    SetIDTGate((void*)SegmentNotPreasent_Handler, 0x11, IDT_TA_InterruptGate, 0x08);
     asm ("lidt %0" : : "m" (idtr));
 
     RemapPIC();
@@ -43,6 +45,12 @@ __attribute__((interrupt)) void PageFault_Handler(interrupt_frame* frame){
     while(1){}
 }
 
+__attribute__((interrupt)) void SegmentNotPreasent_Handler(interrupt_frame* frame){
+    Panic("Segment Not Preasent", "IDT", "loading the kernel", foo->GetOffset(), foo->type_attr, foo->selector);
+    while(1){}
+}
+
+
 __attribute__((interrupt)) void StackSegmentFault_Handler(interrupt_frame* frame){
     Panic("Stack Segment Fault", "IDT", "loading the kernel", foo->GetOffset(), foo->type_attr, foo->selector);
     while(1){}
@@ -50,6 +58,21 @@ __attribute__((interrupt)) void StackSegmentFault_Handler(interrupt_frame* frame
 
 __attribute__((interrupt)) void Debug_Handler(interrupt_frame* frame){
     Panic("Debug error", "IDT", "loading the kernel", foo->GetOffset(), foo->type_attr, foo->selector);
+    while(1){}
+}
+
+__attribute__((interrupt)) void Overflow_Handler(interrupt_frame* frame){
+    Panic("Overflow", "IDT", "loading the kernel", foo->GetOffset(), foo->type_attr, foo->selector);
+    while(1){}
+}
+
+__attribute__((interrupt)) void BoundRange_Handler(interrupt_frame* frame){
+    Panic("Bound Range Exceeded", "IDT", "loading the kernel", foo->GetOffset(), foo->type_attr, foo->selector);
+    while(1){}
+}
+
+__attribute__((interrupt)) void Device_Handler(interrupt_frame* frame){
+    Panic("Device Not Available", "IDT", "loading the kernel", foo->GetOffset(), foo->type_attr, foo->selector);
     while(1){}
 }
 
