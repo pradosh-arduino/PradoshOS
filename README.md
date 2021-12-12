@@ -93,9 +93,7 @@
  
 ## Pictures
  Main Screen:
- ![Capture](https://user-images.githubusercontent.com/69463173/144822958-1ba50442-ef48-4bd0-a21c-c9d027fccc9b.PNG)
-
-
+ ![Capture](https://user-images.githubusercontent.com/69463173/145718242-a4c97c46-8d3e-4294-a8aa-c48de1bd57e4.PNG)
  
  Error Screen:
  ![newError](https://user-images.githubusercontent.com/69463173/145708579-c82beeb0-b04c-48eb-8073-2fe08262b041.png)
