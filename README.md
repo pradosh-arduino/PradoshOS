@@ -28,6 +28,7 @@
     + [Step 2](https://github.com/pradosh-arduino/PradoshOS#step-2-changing-the-font)
 + [Articles & Resources](https://github.com/pradosh-arduino/PradoshOS#articles--resources)
 + [TODO](https://github.com/pradosh-arduino/PradoshOS#todo)
++ [Build Structure](https://github.com/pradosh-arduino/PradoshOS#build-structure)
 + [Problems](https://github.com/pradosh-arduino/PradoshOS#problems)
 + [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
 + [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
