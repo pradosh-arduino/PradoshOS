@@ -28,7 +28,7 @@
 + [Articles & Resources](https://github.com/pradosh-arduino/PradoshOS#articles--resources)
 + [TODO](https://github.com/pradosh-arduino/PradoshOS#todo)
 + [Build Structure](https://github.com/pradosh-arduino/PradoshOS#build-structure)
-+ [Problems](https://github.com/pradosh-arduino/PradoshOS#problems)
++ [Problems & Q and A](https://github.com/pradosh-arduino/PradoshOS/#problems--q-and-a)
 + [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
 + [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
 
