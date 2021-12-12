@@ -152,6 +152,9 @@
    + Pre-release
    + Release Canditate
    + Main Release
+  
+## PradoshOS Common Logs
+   + 12/12/21 = Fixed a Release Date
       
 ## Problems & Q and A
  *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
