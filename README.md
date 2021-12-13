@@ -18,7 +18,6 @@
     + [Step 4](https://github.com/pradosh-arduino/PradoshOS#step-4-get-qemu-emulator)
 + [Compilation of Bootloader](https://github.com/pradosh-arduino/PradoshOS#compilation-of-bootloader)
 + [Compilation of Kernel](https://github.com/pradosh-arduino/PradoshOS#compilation-of-kernel)
-+ [Compilation of Userland](https://github.com/pradosh-arduino/PradoshOS#compilation-of-userland)
 + [Setup of compile-all.sh](https://github.com/pradosh-arduino/PradoshOS#setup-of-compile-allsh)
 + [Steps](https://github.com/pradosh-arduino/PradoshOS#steps)
 + [Running the OS](https://github.com/pradosh-arduino/PradoshOS#running-the-os)
@@ -28,7 +27,8 @@
     + [Step 2](https://github.com/pradosh-arduino/PradoshOS#step-2-changing-the-font)
 + [Articles & Resources](https://github.com/pradosh-arduino/PradoshOS#articles--resources)
 + [TODO](https://github.com/pradosh-arduino/PradoshOS#todo)
-+ [Problems](https://github.com/pradosh-arduino/PradoshOS#problems)
++ [Build Structure](https://github.com/pradosh-arduino/PradoshOS#build-structure)
++ [Problems & Q and A](https://github.com/pradosh-arduino/PradoshOS/#problems--q-and-a)
 + [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
 + [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
 
@@ -71,31 +71,25 @@
  then type `make all` to compile the kernel in to object file then it will link the objects into a bootloader
  understandable kernel executable (.elf) and takes the startup.nsh (a small script that calls bootloader), zap-light16.psf (font file), kernel.elf (sys kernel), main.efi 
  (bootloader) and makes these files into a bootable Floppy Disk Image
- 
-## Compilation of Userland
- go into your kernel dir then type this command `cd userland` then type `make all`
- 
+  
 ## Setup of compile-all.sh
  if you get the error `permission denied` no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
  
 ## Steps
  1. build the bootloader
- 2. build the userland
  3. build the kernel
  4. build the bootable image (.img)
  
 ## Running the OS
 
- Now the OS cannot run in VirtualBox or VMware, it only run on qemu and real hardware
+ Now the OS CAN run in VirtualBox or VMware
  so here are the steps to run in qemu
  if your in linux you need to run `make run` (implemented make run for linux users)
  if your in Windows run `run.bat`
  
 ## Pictures
  Main Screen:
- ![Capture](https://user-images.githubusercontent.com/69463173/144822958-1ba50442-ef48-4bd0-a21c-c9d027fccc9b.PNG)
-
-
+ ![Capture](https://user-images.githubusercontent.com/69463173/145718242-a4c97c46-8d3e-4294-a8aa-c48de1bd57e4.PNG)
  
  Error Screen:
  ![newError](https://user-images.githubusercontent.com/69463173/145708579-c82beeb0-b04c-48eb-8073-2fe08262b041.png)
@@ -149,17 +143,38 @@
    + Complete types.h
    + Fill the structs in ACPI
    + Complete Folder in FS
+
+## Build Structure
+   + Dev Build
+   + vbox-bootable
+   + Alpha
+   + Beta
+   + Pre-release
+   + Release Canditate
+   + Main Release
+  
+## PradoshOS Common Logs
+   + 12/12/21 = Fixed a Release Date
       
-## Problems
+## Problems & Q and A
+ *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
+
+ *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
+ 
  **Q: Qemu stuck while booting (Tiano Core)**
  
  A: That means UEFI binaries had corrupted which is a normal thing, goto
     https://github.com/pradosh-arduino/UEFI-Firmware and download the files
     then paste it in OVMFbin
     
- *after changing the file structure there is high chance of bootlooping, if it started bootlooping email me I will try to help you ASAP*
-
- *General protection fault, Page fault, Double Fault will occur various reasons it's recommended to Contact me or create a issue in https://github.com/pradosh-arduino/PradoshOS/issues*
+ **Q: Will there be support for any other CPU Architectures than x86_64(64 bit)?**
+ 
+ A: No, only x86_64(64 bit) maybe I will make for 32 bit but 99% I'm not gonna do it
+ 
+ **Q: When Will the PradoshOS will get released?**
+ 
+ A: Ok I Set the Fixed Date I started my OS on March 31 2021 so release date is March 31 2022
+    
  
 ## Credits
  There were some awesome people who helped me in my OS Dev journey they are
@@ -176,3 +191,5 @@
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
  
  Discord: **helloImPR#6776**
+ 
+ Discord Server: https://discord.gg/ChP4RMgcKG
