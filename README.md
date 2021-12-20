@@ -66,7 +66,7 @@
  
 # Compilation of Kernel
 
- ## Change Directory
+ ## Step 1: Change Directory
    Use `cd <OS_path>` to get into the OS Dir, then use `cd kernel` to enter kernel directory
    
  ## Step 2: Build The Kernel
