@@ -32,44 +32,44 @@
 + [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
 + [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
 
-## Setup
+# Setup
 
  if your building any OS for first time, you have a lot to install
  
- # Step 1: Install WSL
+ ## Step 1: Install WSL
  
          - WSL emulates Linux System in Windows without any virtual machine (skip the step if your using Linux)
  
- # Step 2: Update WSL/Linux Environment (Optional but recommended)
+ ## Step 2: Update WSL/Linux Environment (Optional but recommended)
  
          - Run `sudo apt update` (in terminal) to Update your WSL/Linux
 
- # Step 3: Get Some Build tools
+ ## Step 3: Get Some Build tools
  
          - Run the following commands:
          - `sudo apt-get install build-essential mtools`
          - `you need cross compiler too here is a tutorial to set it up`
          - `https://www.youtube.com/watch?v=-v6uRjpR_0M`
 
- # Step 4: Get Qemu Emulator
+ ## Step 4: Get Qemu Emulator
  
          - If your in linux type this in terminal `sudo apt install qemu`
          - If your in WSL goto https://www.qemu.org/ and download from there
          
-## Compilation of Bootloader
+# Compilation of Bootloader
 
- # Step 1: Change Directory
+ ## Step 1: Change Directory
    Use `cd <OS_path>` to get into the OS Dir, then use `cd gnu-efi` to enter gnu-efi directory
  
- # Step 2: Build The Bootloader
+ ## Step 2: Build The Bootloader
    Use `make bootloader` to build the bootloader
  
-## Compilation of Kernel
+# Compilation of Kernel
 
- # Change Directory
+ ## Change Directory
    Use `cd <OS_path>` to get into the OS Dir, then use `cd kernel` to enter kernel directory
    
- # Step 2: Build The Kernel
+ ## Step 2: Build The Kernel
    Use `make setup` to make some folders for you, Then use `make all` to compile the code, link the code, build the .img
   
 ## Setup of compile-all.sh
