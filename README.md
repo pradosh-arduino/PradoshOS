@@ -58,25 +58,31 @@
          
 ## Compilation of Bootloader
 
- now open WSL/Linux terminal and goto your directory by typing `cd <path/to/os/dir>`
- then type `cd gnu-efi` to get in to bootloader's directory
- then type `make bootloader`
- DONE You compiled the bootloader but that's not enough that leads to compilation of kernel
+ # Step 1: Change Directory
+   Use `cd <OS_path>` to get into the OS Dir, then use `cd gnu-efi` to enter gnu-efi directory
+ 
+ # Step 2: Build The Bootloader
+   Use `make bootloader` to build the bootloader
  
 ## Compilation of Kernel
 
- now type `cd ../kernel` to exit bootloader's Directory and enter Kernel Directory
- now type `make setup` it will give you 2 errors but that's not a problem the command
- `make setup` will create a new folder where compiled objects will get stored
- then type `make all` to compile the kernel in to object file then it will link the objects into a bootloader
- understandable kernel executable (.elf) and takes the startup.nsh (a small script that calls bootloader), zap-light16.psf (font file), kernel.elf (sys kernel), main.efi 
- (bootloader) and makes these files into a bootable Floppy Disk Image
+ # Change Directory
+   Use `cd <OS_path>` to get into the OS Dir, then use `cd kernel` to enter kernel directory
+   
+ # Step 2: Build The Kernel
+   Use `make setup` to make some folders for you, Then use `make all` to compile the code, link the code, build the .img
   
 ## Setup of compile-all.sh
  if you get the error `permission denied` no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
  
+## Setup of Limine
+ 
+ # Step 1: get Limine
+   Use `make limine-update` to get the latest version of limine
+   
 ## Steps
  1. build the bootloader
+ 2. build the limine
  3. build the kernel
  4. build the bootable image (.img)
  
@@ -84,7 +90,6 @@
 
  Now the OS CAN run in VirtualBox or VMware
  so here are the steps to run in qemu
- if your in linux you need to run `make run` (implemented make run for linux users)
  if your in Windows run `run.bat`
  
 ## Pictures
@@ -93,11 +98,7 @@
  
  Error Screen:
  ![newError](https://user-images.githubusercontent.com/69463173/145708579-c82beeb0-b04c-48eb-8073-2fe08262b041.png)
- 
- Bootloader:
- 
- ![bootld](https://user-images.githubusercontent.com/69463173/144696398-f3120243-5879-47fc-b79f-46b46bf5608c.png)
- 
+  
 ## Font Package
  Right now there are some fonts (that I can find) which works with PradoshOS. to install a diffrent font follow the steps below
  
@@ -111,6 +112,19 @@
          - then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
          - rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
          
+## File Structure
+   | Directory | Description |
+   |-----------|-------------|
+   | /EFI | The main EFI Directory |
+   | /EFI/BOOT | The boot folder where the UEFI Shell is located (bootx64.efi) |
+   | /EFI/BOOT/bootx64.efi | The UEFI Shell used for Real Machines |
+   | /EFI/pradx-boot | This is the place where PradX Bootloader is located |
+   | /EFI/pradx-boot/main.efi | The main PradX Bootloader |
+   | /PradoshOS | Here will be some files that are lower level of kernel |
+   | /kernel.elf | The Core PradoshOS Kernel |
+   | /zap-light16.psf | The Font for PradoshOS |
+   | /bootmgr.efi | The limine boot manager (doesn't work yet) |
+   
 ## Articles & Resources
    https://wiki.osdev.org/UEFI
    
