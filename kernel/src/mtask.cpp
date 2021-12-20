@@ -2,6 +2,7 @@
 #include <cstddef>
 #include "BasicRenderer.h"
 #include "cstr.h"
+#include "kernelUtil.h"
 
 int IRQ_disable_counter = 0;
 task* first_ready_to_run_task = first_ready_to_run_task->next;
@@ -13,8 +14,6 @@ Multiprocessing* mp;
 
 int ret1;
 int ret2;
-
-#define KERNEL_STACK_SIZE 0x1000
 
 void lock_scheduler(void) {
 #ifndef SMP
@@ -45,13 +44,14 @@ void schedule(void) {
     //GlobalRenderer->Print("Started!");
 }
 
-void block_task(int reason) {
+bool block_task(int reason) {
     lock_scheduler();
     current_task_TCB->state = reason;
     GlobalRenderer->Print(get_error_code(current_task_TCB->state));
     GlobalRenderer->Next();
     schedule();
     unlock_scheduler();
+    return true;
 }
 
 void unblock_task(task* task2) {
@@ -81,7 +81,7 @@ const char* get_error_code(int state){
     }else if(state == 4){
         return "Shutting down services";
     }else if(state == 5){
-        return "Terminated. PID:", to_string((long int)task2->id);;
+        return "Terminated.";
     }else if(state == 6){
         return "Paused";
     }else if(state == 7){

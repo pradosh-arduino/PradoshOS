@@ -187,25 +187,11 @@ void BasicRenderer::ClearLine(int line){
     CursorPosition.Y = tempY;
     CursorPosition.X = tempX;
 }
-void BasicRenderer::Scroll(int line){
-    //uint16_t blankCell = ' ';
-    //uint16_t offset = CursorPosition.Y - TargetFramebuffer->Width + 1;
-	//_memcpy(u8video_memory, u8video_memory + (offset * TargetFramebuffer->Height * 2), (TargetFramebuffer->Width - offset) * TargetFramebuffer->Height * 2);
-	//
-	//// Clear the last row
-	//memsetw(video_memory + ((TargetFramebuffer->Width - offset) * TargetFramebuffer->Height), blankCell, TargetFramebuffer->Height);
-	//CursorPosition.Y = TargetFramebuffer->Width - 1;
-
-     // Move up
-    //void * start = (void*)TargetFramebuffer->Height + 1 * TargetFramebuffer->Width * line;
-    //uint32_t size = CursorPosition.Y * TargetFramebuffer->Width * line;
-    //void* tfbHeight = (void*)TargetFramebuffer->Height;
-    
-    //_memcpy((void*)TargetFramebuffer->Height, start, size);
-    //// Delete
-    //start = tfbHeight + size;
-    //memsetw((uint16_t*)start, 0x00, TargetFramebuffer->Width);
-    //CursorPosition.Y--;
+void BasicRenderer::Scroll(){
+    if(CursorPosition.Y == TargetFramebuffer->Height){
+        Clear();
+        CursorPosition = {0, 0};
+    }
 }
 
 void BasicRenderer::Seperator(){

@@ -17,6 +17,9 @@ class Multiprocessing{
     int currentProcess;
 };
 
+extern uint16_t KERNEL_STACK_SIZE;
+extern void kernel_stack();
+
 extern task* task2;
 extern Multiprocessing* mp;
 
@@ -26,7 +29,7 @@ extern int ret2;
 void lock_scheduler(void);
 void unlock_scheduler(void);
 void schedule(void);
-void block_task(int reason);
+bool block_task(int reason);
 void unblock_task(task* task2);
 void cleanup_terminated_task(task* task2);
 void cleaner_task(void);

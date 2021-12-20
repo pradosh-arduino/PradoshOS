@@ -10,9 +10,13 @@
 #include "pic.h"
 #include "ethernet/RTL8139.h"
 #include "mtask.h"
+#include "gdt/gdt.h"
+#include "tss/tss.h"
+#include "ahci/ahci.h"
 
 KernelInfo kernelInfo; 
 PageTableManager pageTableManager = NULL;
+static uint8_t stack[8192];
 
 void PrepareMemory(BootInfo* bootInfo){
     uint64_t mMapEntries = bootInfo->mMapSize / bootInfo->mMapDescSize;
@@ -49,7 +53,7 @@ void PrepareMemory(BootInfo* bootInfo){
 void PrepareACPI(BootInfo* bootInfo){
     ACPI::SDTHeader* xsdt = (ACPI::SDTHeader*)(bootInfo->rsdp->XSDTAddress);
     
-    ACPI::MCFGHeader* mcfg = (ACPI::MCFGHeader*)ACPI::FindTable(xsdt, (char*)"MCFG");
+    ACPI::MCFGHeader* mcfg = (ACPI::MCFGHeader*)ACPI::FindTable(xsdt, (char*)"MCFG ");
 
     PCI::EnumeratePCI(mcfg);
 }
@@ -88,7 +92,14 @@ KernelInfo InitializeKernel(BootInfo* bootInfo){
 
     InitPS2Mouse();
 
-    PrepareACPI(bootInfo);
+    ACPI::SDTHeader* xsdt = (ACPI::SDTHeader*)(bootInfo->rsdp->XSDTAddress);
+
+    GlobalRenderer->Print(to_hstring((uint64_t)bootInfo->rsdp->XSDTAddress));
+    GlobalRenderer->Next();
+    
+    ACPI::MCFGHeader* mcfg = (ACPI::MCFGHeader*)ACPI::FindTable(xsdt, (char*)"MCFG");
+
+    PCI::EnumeratePCI(mcfg);
     AcpiInit();
 
     cleaner_task();

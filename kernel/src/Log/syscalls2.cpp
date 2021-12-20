@@ -1,6 +1,7 @@
 #include "syscalls2.h"
 #include "../BasicRenderer.h"
 #include "../fs.h"
+#include "../rtc.h"
 
 void Syscalls::Debug(const char* str){
     GlobalRenderer->Print("[");
@@ -87,4 +88,15 @@ void Syscalls::LoadingAnim(){
     GlobalRenderer->Colour = 0x0000ff00;
     GlobalRenderer->Print("Done");
     GlobalRenderer->Colour = 0x00ffffff;
+}
+
+void Syscalls::Time(const char* msg){
+    GlobalRenderer->PutChar('[');
+    GlobalRenderer->Print(to_string((long int)getHours()));
+    GlobalRenderer->PutChar(':');
+    GlobalRenderer->Print(to_string((long int)getMinutes()));
+    GlobalRenderer->PutChar(':');
+    GlobalRenderer->Print(to_string((long int)getSeconds()));
+    GlobalRenderer->PutChar(']');
+    GlobalRenderer->Print(msg);
 }

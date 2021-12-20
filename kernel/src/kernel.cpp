@@ -1,6 +1,5 @@
 //applist
 //#include <stdio.h>
-#include <cstdio>
 //#include <glibc.h>
 //applist
 #include "kernelUtil.h"
@@ -16,8 +15,7 @@
 //interupts
 
 //interupts
-#include "userspace/tss.h"
-#include "userspace/user_gdt.h"
+
 //user
 #include "GUI.h"
 //efimemory
@@ -31,25 +29,17 @@
 #include "PradX.h"
 //limine
 #include <stdint.h>
-#include <stdio.h>
-#include <stddef.h>
 //#include <stivale.h>
 //limine
 //#include "memory/heap.h"
 //
-#include <stdio.h>
-#include <stdlib.h>
 //#include <iostream>
 //#include <string>
 
 //file reading
-#include <stdio.h>
-#include <stdlib.h>
 #include "COM.h"
 //file reading
 #include "Log/syscalls2.h"
-
-#include "errorScreen/errScr.h"
 
 #include "malloc.h"
 #include "acpi.h"
@@ -61,6 +51,8 @@
 #include "fade.h"
 #include "pic.h"
 
+#include "program.h"
+
 #include "ata/ata.h"
 
 using namespace std;
@@ -71,7 +63,6 @@ extern "C" void _start(BootInfo* bootInfo){
     KernelInfo kernelInfo = InitializeKernel(bootInfo);
     PageTableManager* pageTableManager = kernelInfo.pageTableManager;
     cleanup_terminated_task(task2);
-    //PIT::TimeSinceBoot = 1;
     PIT::SetDivisor(65535);
     int HardDriveAvaStorageMB = 276447231;
     int HardDriveAvaStorageKB = 276447231;
@@ -181,7 +172,7 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->Colour = 0x0000ccff;
     GlobalRenderer->Next();
     GlobalRenderer->Print("CPU Architecture:");
-    GlobalRenderer->Print("x86_64");
+    GlobalRenderer->Print("i386:x86_64");
     GlobalRenderer->Next();
     /*
         EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)((uint64_t)bootInfo->mMap + (i * bootInfo->mMapDescSize));
@@ -256,6 +247,18 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->Next();
     printFill("i can print filed text hahaha");
     GlobalRenderer->Next();
+    GlobalRenderer->Print("Size Of .text:   0x");
+    GlobalRenderer->Print(to_hstring((uint32_t)textS));
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("Size Of .data:   0x");
+    GlobalRenderer->Print(to_hstring((uint32_t)dataS));
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("Size Of .rodata: 0x");
+    GlobalRenderer->Print(to_hstring((uint32_t)rodataS));
+    GlobalRenderer->Next();
+    GlobalRenderer->Print("Size Of .bss:    0x");
+    GlobalRenderer->Print(to_hstring((uint32_t)bssS));
+    GlobalRenderer->Next();
     //GlobalShell->Init(); //SHELL MODE
     MousePosition.X = ScreenWidth / 2;
     MousePosition.Y = ScreenHeight / 2;
@@ -291,11 +294,10 @@ extern "C" void _start(BootInfo* bootInfo){
     GlobalRenderer->Next();
 
     halt = true;
-    //GDT_TSS();
-    //jump_usermode();
-        
+           
     for(;;){
       asm("hlt"); // imp cpu eff
+      GlobalRenderer->Scroll();
       ProcessMousePacket();
       int length = strlen((char*)to_string((long int)getHours()));
       int lenght2 = strlen((char*)to_string((long int)getMinutes()));

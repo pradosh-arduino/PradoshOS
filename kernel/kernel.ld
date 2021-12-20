@@ -1,4 +1,6 @@
 OUTPUT_FORMAT(elf64-x86-64)
+OUTPUT_ARCH(i386:x86-64)
+
 ENTRY(_start)
 
 SECTIONS
@@ -22,5 +24,17 @@ SECTIONS
 		*(COMMON)
 		*(.bss)
 	}
+
+	"textS" = SIZEOF(.text);
+	"dataS" = SIZEOF(.data);
+	"rodataS" = SIZEOF(.rodata);
+	"bssS" = SIZEOF(.bss);
 	_KernelEnd = .;
+
+	/DISCARD/ :
+	{
+		*(.comment)
+		*(.eh_frame)
+		*(.note.gnu.build-id)
+	}
 }

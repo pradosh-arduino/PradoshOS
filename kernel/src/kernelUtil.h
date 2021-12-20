@@ -25,13 +25,17 @@ struct BootInfo {
 	uint64_t mMapSize;
 	uint64_t mMapDescSize;
 	ACPI::RSDP2* rsdp;
+	ACPI::RSDPDescriptor20* rsdp2;
 } ;
 
 extern uint64_t _KernelStart;
 extern uint64_t _KernelEnd;
 
-extern "C" void flush_tss(void);
-extern "C" void jump_usermode();
+
+extern "C" uint64_t textS;
+extern "C" uint64_t dataS;
+extern "C" uint64_t rodataS;
+extern "C" uint64_t bssS;
 
 struct KernelInfo {
     PageTableManager* pageTableManager;

@@ -38,6 +38,7 @@ OBJDIR := lib
 BUILDDIR = bin
 USRDIR := userland
 CHKDIR := chk
+DUMPDIR := dump
 BOOTEFI := $(GNUEFI)/x86_64/bootloader/main.efi
 BOOTX64 := $(GNUEFI)/x86_64/bootloader/bootx64.efi
 BOOTIA32 := $(BUILDDIR)/bootia32.efi
@@ -81,14 +82,15 @@ link:
 	touch $(CHKDIR)/.obj-done
 	@ echo "\e[1;34mLINKING $^\e[0m"
 	$(LD) $(LDFLAGS) -o $(BUILDDIR)/kernel.elf $(OBJS)
-	touch $(CHKDIR)/.link-done
+	@touch $(CHKDIR)/.link-done
 
 setup:
 	@mkdir -p $(BUILDDIR)
 	@mkdir -p $(SRCDIR)
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(CHKDIR)
-	touch $(CHKDIR)/.setup-done
+	@mkdir -p $(DUMPDIR)
+	@touch $(CHKDIR)/.setup-done
 
 clean:
 	- rm -r lib/*
@@ -97,7 +99,7 @@ deep-clean:
 	- rm -r chk/*
 	clean
 
-all: clean userland kernel buildimg read print
+all: clean kernel buildimg read print
 
 userland:
 	nasm $(ASMFLAGS) src/userland/userlandASM.asm -f elf64 -o lib/userland/userlandASM.o
@@ -107,22 +109,41 @@ print:
 	@ echo "\e[1;32m [DONE] PradoshOS compiled and builded Successfully! \e[0m"
 
 read:
-	hexdump -C bin/kernel.elf > hexdump.txt
-	readelf -a bin/kernel.elf > ReadELF.txt
+	hexdump -C bin/kernel.elf > $(DUMPDIR)/hexdump.txt
+	readelf -a bin/kernel.elf > $(DUMPDIR)/ReadELF.txt
+	objdump -a bin/kernel.elf > $(DUMPDIR)/objdump.txt
+	objdump -f bin/kernel.elf >> $(DUMPDIR)/objdump.txt
 
 version:
 	objcopy res/version.txt -O version.o
 	copy res/version.o lib/
 
+kernelchkRIP:
+	addr2line -fe bin/kernel.elf 0x000000000f0f841e
+
 buildimg:
-	dd if=/dev/zero of=$(BUILDDIR)/$(OSNAME).img bs=512 count=93750
-	mformat -v PradoshOS -i $(BUILDDIR)/$(OSNAME).img -f 1440 ::
+	qemu-img create -f raw $(BUILDDIR)/$(OSNAME).img 10M
+	mformat -v PradoshOS -i $(BUILDDIR)/$(OSNAME).img ::
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/BOOT
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/pradx-boot
+	mmd -i $(BUILDDIR)/$(OSNAME).img ::/PradoshOS
+	mmd -i $(BUILDDIR)/$(OSNAME).img ::/PradoshOS/Recovery
+	mmd -i $(BUILDDIR)/$(OSNAME).img ::/syscfg
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BOOTEFI) ::/EFI/pradx-boot
-	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/bootx64.efi ::/EFI/BOOT
-	mcopy -i $(BUILDDIR)/$(OSNAME).img startup.nsh ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img res/bootx64.efi ::/EFI/BOOT
+	mcopy -i $(BUILDDIR)/$(OSNAME).img ../Limine/bootmgr/bootmgr.efi ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img ../Limine/limine.cfg ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img res/startup.nsh ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/kernel.elf ::
-	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-light16.psf ::
-	touch $(CHKDIR)/.img-done
+	mcopy -i $(BUILDDIR)/$(OSNAME).img res/zap-light16.psf ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img res/shimx64.efi ::/PradoshOS/Recovery
+	@touch $(CHKDIR)/.img-done
+
+Check: CheckMultiboot_bootloader Checkx86_64_bootloader
+
+CheckMultiboot_bootloader:
+	@if grub-file --is-x86-multiboot $(BOOTEFI); then   echo multiboot confirmed; else   echo the file is not multiboot; fi
+
+Checkx86_64_bootloader:
+	@if grub-file --is-x86_64-efi $(BOOTEFI); then   echo File is x86_64; else   echo File is not x86_64; fi

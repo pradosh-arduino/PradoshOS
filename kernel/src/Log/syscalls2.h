@@ -8,4 +8,5 @@ class Syscalls{
     void Failed(const char* str);
     void Warn(const char* str);
     void LoadingAnim();
+    void Time(const char* msg);
 };
