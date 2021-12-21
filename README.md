@@ -69,9 +69,9 @@
 ## Setup of compile-all.sh
  if you get the error `permission denied` no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
  
-## Setup of Limine
+# Setup of Limine
  
- # Step 1: get Limine
+ ## Step 1: get Limine
    Use `make limine-update` to get the latest version of limine
    
 ## Steps
