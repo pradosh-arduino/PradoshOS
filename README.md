@@ -206,6 +206,8 @@
  🎅Konect#0496ㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
  
  PedroElFrijol#8628ㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
+ 
+ __joel__#2911ㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
 
 # Contact
  E-Mail: pradoshnathan@gmail.com or pradoshgame@gmail.com
