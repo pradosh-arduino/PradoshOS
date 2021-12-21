@@ -151,7 +151,11 @@
    
    https://www.wfbsoftware.de/realtek-rtl8139-network-interface-card/
    
-   more at: https://wiki.osdev.org
+  https://en.wikipedia.org/wiki/Sound_Blaster
+  
+  https://en.wikipedia.org/wiki/Bus_mastering
+  
+  https://wiki.osdev.org/Sound_Blaster_16
    
 ## TODO
    + Implement TSAD in Ethernet
