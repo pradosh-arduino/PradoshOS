@@ -66,7 +66,7 @@
  ## Step 2: Build The Kernel
    Use `make setup` to make some folders for you, Then use `make all` to compile the code, link the code, build the .img
   
-## Setup of compile-all.sh
+# Setup of compile-all.sh
  if you get the error `permission denied` no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
  
 # Setup of Limine
