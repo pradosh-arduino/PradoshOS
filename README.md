@@ -173,14 +173,8 @@
   https://en.wikipedia.org/wiki/Bus_mastering
   
   https://wiki.osdev.org/Sound_Blaster_16
-   
-## TODO
-   + Implement TSAD in Ethernet
-   + Complete types.h
-   + Fill the structs in ACPI
-   + Complete Folder in FS
-  
-## PradoshOS Common Logs
+     
+## Common Logs
    + 12/12/21 = Fixed a Release Date
       
 ## Problems & Q and A
