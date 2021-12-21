@@ -113,9 +113,9 @@
          - then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
          - rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
          
-## Tables
+# Tables
  
- # File Structure
+ ## File Structure
    | Directory | Description |
    |-----------|-------------|
    | /EFI | The main EFI Directory |
@@ -128,7 +128,7 @@
    | /zap-light16.psf | The Font for PradoshOS |
    | /bootmgr.efi | The limine boot manager (doesn't work yet) |
    
- # Build Structure
+ ## Build Structure
    | Build Name | Is Major Version |
    |------------|------------------|
    | Dev Build | No |
@@ -139,7 +139,9 @@
    | Release Candidate | Yes |
    | Release | Most Major version |
    
- # Kernel
+ ## Kernel
+   | Kernel Info | Values |
+   | ------------|--------|
    | Stack Size | 0x1000 |
    | Kernel File Type | Elf64 |
    | Kernel Arch | 64 bit |
