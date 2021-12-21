@@ -2,9 +2,7 @@
 
 ![Untitled-1](https://user-images.githubusercontent.com/69463173/144822865-e740934e-7358-4b68-9e23-b0591941c65d.png)
 
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=pradosh-arduino&show_icons=true)
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=pradosh-arduino&layout=compact&langs_count=10)
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=pradosh-arduino&show_icons=true)
 
 <a href="https://www.buymeacoffee.com/pradoshArduino"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=pradoshArduino&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"></a>
 
