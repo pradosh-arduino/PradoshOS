@@ -27,11 +27,11 @@
 
 # Setup
 
- if your building any OS for first time, you have a lot to install
+ if your building any OS for the first time, you have a lot to install.
  
  ## Step 1: Install WSL
  
-         - WSL emulates Linux System in Windows without any virtual machine (skip the step if your using Linux)
+         - WSL emulates Linux System in Windows without any virtual machine (skip the step if you're using Linux)
  
  ## Step 2: Update WSL/Linux Environment (Optional but recommended)
  
@@ -46,8 +46,8 @@
 
  ## Step 4: Get Qemu Emulator
  
-         - If your in linux type this in terminal `sudo apt install qemu`
-         - If your in WSL goto https://www.qemu.org/ and download from there
+         - If you're using linux type this in terminal `sudo apt install qemu`
+         - If you're using WSL goto https://www.qemu.org/ and download from there
          
 # Compilation of Bootloader
 
@@ -66,7 +66,7 @@
    Use `make setup` to make some folders for you, Then use `make all` to compile the code, link the code, build the .img
   
 # Setup of compile-all.sh
- if you get the error `permission denied` no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
+ if you get the error `permission denied`, no problem just type `chmod -x compile-all.sh` now you can run it with `./compile-all.sh`
  
 # Setup of Limine
  
@@ -103,8 +103,8 @@
  # Step 2: Changing the Font
  
   + This is a tricky part, first download PowerISO and open the OS image file with PowerISO
-  + then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
-  + rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
+  + then it's much like a folder there you can see zap-light16.psf replace it with your font but if the font name is TestFontLmao.psf
+  + rename the file to exact same name zap-light16.psf and save the file and run again with qemu, now you should see the new font.
          
 # Tables
  
