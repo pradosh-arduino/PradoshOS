@@ -99,13 +99,13 @@
  
  # Step 1: Get a Font
  
-         - if you can't find a PSF type font there is https://github.com/pradosh-arduino/Font-Package right now there is some font if we find more PSF fonts we will add it
+   + if you can't find a PSF type font there is https://github.com/pradosh-arduino/Font-Package right now there is some font if we find more PSF fonts we will add it
          
  # Step 2: Changing the Font
  
-         - This is a tricky part, first download PowerISO and open the OS image file with PowerISO
-         - then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
-         - rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
+  + This is a tricky part, first download PowerISO and open the OS image file with PowerISO
+  + then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
+  + rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
          
 # Tables
  
