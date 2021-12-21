@@ -22,6 +22,7 @@
 + [Font Package](https://github.com/pradosh-arduino/PradoshOS#font-package)
 + [Tables](https://github.com/pradosh-arduino/PradoshOS/blob/main/README.md#tables)
 + [Articles & Resources](https://github.com/pradosh-arduino/PradoshOS#articles--resources)
++ [Common Logs](https://github.com/pradosh-arduino/PradoshOS/blob/main/README.md#common-logs)
 + [Problems & Q and A](https://github.com/pradosh-arduino/PradoshOS/#problems--q-and-a)
 + [Credits](https://github.com/pradosh-arduino/PradoshOS#credits)
 + [Contact](https://github.com/pradosh-arduino/PradoshOS#contact)
