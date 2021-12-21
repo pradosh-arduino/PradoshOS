@@ -113,7 +113,9 @@
          - then it's much like a folder there you can see zap-light16.psf replace it with your font but like if the font name is TestFontLmao.psf
          - rename the file to exact same name zap-light16.psf and save the file and run again with qemu now you should see the new font
          
-## File Structure
+## Tables
+ 
+ # File Structure
    | Directory | Description |
    |-----------|-------------|
    | /EFI | The main EFI Directory |
@@ -125,6 +127,25 @@
    | /kernel.elf | The Core PradoshOS Kernel |
    | /zap-light16.psf | The Font for PradoshOS |
    | /bootmgr.efi | The limine boot manager (doesn't work yet) |
+   
+ # Build Structure
+   | Build Name | Is Major Version |
+   |------------|------------------|
+   | Dev Build | No |
+   | vbox-bootable | No |
+   | Alpha | Sort Of |
+   | Beta | Sort OF |
+   | Pre-release | Yes |
+   | Release Candidate | Yes |
+   | Release | Most Major version |
+   
+ # Kernel
+   | Stack Size | 0x1000 |
+   | Kernel File Type | Elf64 |
+   | Kernel Arch | 64 bit |
+   | Kernel Type | Monolithic, Modular |
+   | Kernel Stability | 6/10 |
+   | Kernel Performance | 8/10 |
    
 ## Articles & Resources
    https://wiki.osdev.org/UEFI
@@ -162,15 +183,6 @@
    + Complete types.h
    + Fill the structs in ACPI
    + Complete Folder in FS
-
-## Build Structure
-   + Dev Build
-   + vbox-bootable
-   + Alpha
-   + Beta
-   + Pre-release
-   + Release Canditate
-   + Main Release
   
 ## PradoshOS Common Logs
    + 12/12/21 = Fixed a Release Date
