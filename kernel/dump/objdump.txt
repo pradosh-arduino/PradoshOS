@@ -1,0 +1,10 @@
+
+bin/kernel.elf:     file format elf64-x86-64
+bin/kernel.elf
+
+
+bin/kernel.elf:     file format elf64-x86-64
+architecture: i386:x86-64, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x00000000001048f6
+
