@@ -200,8 +200,6 @@
 ## Credits
  There were some awesome people who helped me in my OS Dev journey they are
  
- Peko#5633 ㅤㅤㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
- 
  GAMINGNOOB#3589ㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
  
  🎅Konect#0496ㅤㅤㅤ![dc](https://img.shields.io/static/v1?label=&message=Discord&color=white&logo=Discord)
